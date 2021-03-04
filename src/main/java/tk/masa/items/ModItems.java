@@ -43,11 +43,11 @@ public class ModItems {
 	public static Item titan_rock = Registration.TITAN_ROCK_ITEM.get();
 	
 	//merkur 
-	public static Item merkur_dust = Registration.MERKUR_DUST_ITEM.get();
-	public static Item merkur_rock = Registration.MERKUR_ROCK_ITEM.get();
-	public static Item merkur_compressed_dust = Registration.MERKUR_COMPRESSED_DUST_ITEM.get();
-	public static Item merkur_nickel_ore = Registration.MERKUR_NICKEL_ORE_ITEM.get();
-	public static Item merkur_iron_ore = Registration.MERKUR_IRON_ORE_ITEM.get();
+	public static Item mercury_dust = Registration.MERCURY_DUST_ITEM.get();
+	public static Item mercury_rock = Registration.MERCURY_ROCK_ITEM.get();
+	public static Item mercury_compressed_dust = Registration.MERCURY_COMPRESSED_DUST_ITEM.get();
+	public static Item mercury = Registration.MERCURY_NICKEL_ORE_ITEM.get();
+	public static Item mercury_iron_ore = Registration.MERCURY_IRON_ORE_ITEM.get();
 	
 	//venus 
 	public static Item venus_dust = Registration.VENUS_DUST_ITEM.get();
@@ -72,8 +72,8 @@ public class ModItems {
 	public static Item ganymede_iron_sulfide_ore = Registration.GANYMEDE_IRON_SULFIDE_ORE_ITEM.get();
 	
 	
-	//komet
-	public static Item komet_ice = Registration.KOMET_ICE_ITEM.get();
-	public static Item komet_core_rock = Registration.KOMET_CORE_ROCK_ITEM.get();
-	public static Item komet_dust = Registration.KOMET_DUST_ITEM.get();
+	//comet
+	public static Item comet_ice = Registration.COMET_ICE_ITEM.get();
+	public static Item comet_core_rock = Registration.COMET_CORE_ROCK_ITEM.get();
+	public static Item comet_dust = Registration.COMET_DUST_ITEM.get();
 }

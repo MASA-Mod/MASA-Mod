@@ -42,11 +42,11 @@ public class ModBlocks {
 	public static Block TITAN_ROCK = Registration.TITAN_ROCK.get();
 	
 	//merkur 
-	public static Block MERKUR_DUST = Registration.MERKUR_DUST.get();
-	public static Block MERKUR_ROCK = Registration.MERKUR_ROCK.get();
-	public static Block MERKUR_COMPRESSED_DUST = Registration.MERKUR_COMPRESSED_DUST.get();
-	public static Block MERKUR_NICKEL_ORE = Registration.MERKUR_NICKEL_ORE.get();
-	public static Block MERKUR_IRON_ORE = Registration.MERKUR_IRON_ORE.get();
+	public static Block MERCURY_DUST = Registration.MERCURY_DUST.get();
+	public static Block MERCURY_ROCK = Registration.MERCURY_ROCK.get();
+	public static Block MERCURY_COMPRESSED_DUST = Registration.MERCURY_COMPRESSED_DUST.get();
+	public static Block MERCURY_NICKEL_ORE = Registration.MERCURY_NICKEL_ORE.get();
+	public static Block MERCURY_IRON_ORE = Registration.MERCURY_IRON_ORE.get();
 	
 	//venus 
 	public static Block VENUS_DUST = Registration.VENUS_DUST.get();
@@ -70,9 +70,9 @@ public class ModBlocks {
 	public static Block GANYMEDE_IRON_OXIDE_ORE = Registration.GANYMEDE_IRON_OXIDE_ORE.get();
 	public static Block GANYMEDE_IRON_SULFIDE_ORE = Registration.GANYMEDE_IRON_SULFIDE_ORE.get();
 	
-	//Komet
-	public static Block KOMET_ICE = Registration.KOMET_ICE.get();
-	public static Block KOMET_CORE_ROCK = Registration.KOMET_CORE_ROCK.get();
-	public static Block KOMET_DUST = Registration.KOMET_DUST.get();
+	//Comet
+	public static Block COMET_ICE = Registration.COMET_ICE.get();
+	public static Block COMET_CORE_ROCK = Registration.COMET_CORE_ROCK.get();
+	public static Block COMET_DUST = Registration.COMET_DUST.get();
 
 }
