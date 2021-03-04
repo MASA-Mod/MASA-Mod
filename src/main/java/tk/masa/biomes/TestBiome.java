@@ -8,15 +8,16 @@ import net.minecraft.world.gen.OverworldGenSettings;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import tk.masa.blocks.BlockList;
+import tk.masa.blocks.ModBlocks;
 
 public class TestBiome extends Biome{
 
 	public TestBiome() {
-		super(new Biome.Builder().surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(BlockList.firstBlock.getDefaultState(), Blocks.YELLOW_CONCRETE.getDefaultState(), Blocks.RED_CONCRETE.getDefaultState()))
+		super(new Biome.Builder().surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(ModBlocks.MARS_DUST.getDefaultState(), ModBlocks.MARS_COMPRESSED_DUST.getDefaultState(), ModBlocks.MARS_ROCK.getDefaultState()))
 				.precipitation(RainType.NONE)
 				.category(Category.NONE)
 				.downfall(0f)
-				.depth(3f)
+				.depth(1f)
 				.temperature(0.5f)
 				.scale(0.1f)
 				.waterColor(0x047d53)
