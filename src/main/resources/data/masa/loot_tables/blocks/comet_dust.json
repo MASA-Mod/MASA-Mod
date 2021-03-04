@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "masa:komet_ice"
+          "name": "masa:comet_dust"
         }
       ],
       "conditions": [
