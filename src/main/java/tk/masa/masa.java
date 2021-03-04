@@ -32,11 +32,7 @@ public class masa
 		FurnaceStateData - Save Data
 		FurnaceZoneContents - Links
 		TileEntityFurnace - Logic
-         */
-    
-        // Thos is a Test
-        // Du Dumme Nudel
-        // Test 2
+         */        
     }
 
 }
