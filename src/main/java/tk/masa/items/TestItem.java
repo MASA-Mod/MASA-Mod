@@ -1,5 +1,8 @@
 package tk.masa.items;
 
+import net.minecraft.block.BedBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -17,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.ITeleporter;
+import tk.masa.blocks.ModBlocks;
 import tk.masa.dimension.ModDimensions;
 import tk.masa.other.LearningSystem;
 import tk.masa.other.ReaseachEnum;
@@ -47,11 +51,24 @@ public class TestItem extends Item{
     	World world = context.getWorld();
     	
     	if(world.isRemote){
-    		world.getBlockState(pos);
-	    	LearningSystem.research(ReaseachEnum.PROBE_KOMET);
+    		BlockState bs = world.getBlockState(pos);
+    		
+    		if(bs == ModBlocks.ASTEROID_ROCK.getDefaultState()) {
+    			LearningSystem.research(ReaseachEnum.PROBE_KOMET);
+    			context.getPlayer().sendStatusMessage(new TranslationTextComponent("item.probe.komet"), true);
+    		}else if(bs == Blocks.STONE.getDefaultState()) {
+    			LearningSystem.research(ReaseachEnum.PROBE_EARTH);
+    			context.getPlayer().sendStatusMessage(new TranslationTextComponent("item.probe.earth"), true);
+    		}else if(bs == ModBlocks.MOON_ROCK.getDefaultState()) {
+    			LearningSystem.research(ReaseachEnum.PROBE_MOON);
+    			context.getPlayer().sendStatusMessage(new TranslationTextComponent("item.probe.moon"), true);
+    		}else {
+    			context.getPlayer().sendStatusMessage(new TranslationTextComponent("item.probe.none"), true);
+    		}
+    		
     	}
 	    return ActionResultType.SUCCESS;
-	    //test
+
     }
 	
 }
