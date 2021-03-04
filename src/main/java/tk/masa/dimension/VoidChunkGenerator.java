@@ -19,6 +19,7 @@ import net.minecraft.world.gen.OctavesNoiseGenerator;
 import net.minecraft.world.gen.OverworldChunkGenerator;
 import net.minecraft.world.gen.WorldGenRegion;
 import tk.masa.blocks.BlockList;
+import tk.masa.blocks.ModBlocks;
 import tk.masa.setup.ModObjects;
 
 public class VoidChunkGenerator extends NoiseChunkGenerator<VoidChunkGenerator.Config> {
@@ -46,7 +47,8 @@ public class VoidChunkGenerator extends NoiseChunkGenerator<VoidChunkGenerator.C
 
         public static Config createDefault() {
             Config config = new Config();
-            config.setDefaultBlock(BlockList.firstBlock.getDefaultState());
+            config.setDefaultBlock(ModBlocks.MARS_ROCK.getDefaultState());
+            config.setDefaultFluid(Blocks.AIR.getDefaultState());
             return config;
         }
 

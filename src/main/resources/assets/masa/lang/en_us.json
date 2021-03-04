@@ -8,6 +8,7 @@
 	"block.masa.mars_compressed_dust": "Compressed Mars Dust",
 	"block.masa.mars_dust": "Mars Dust",
 	"block.masa.mars_ice_co2": "Dry Ice",
+<<<<<<< HEAD
 	"block.masa.comet_dust": "Comet Dust",
 	"block.masa.comet_ice": "Comet Ice",
 	"block.masa.comet_core_rock": "Comet Core Rock",
@@ -41,4 +42,40 @@
 	"block.masa.ganymede_iron_oxide_ore": "Ganymede Iron Oxide Ore",
 	"block.masa.ganymede_iron_sulfide_ore": "Ganymede Iron Sulfide Ore",
 	"item.masa.bucket_oil": "Oil Bucket"	
+=======
+	"block.masa.komet_dust": "Kometdust",
+	"block.masa.komet_ice": "Kometice",
+	"block.masa.komet_core_rock": "Kometcorerock",
+	"block.masa.asteroid_clay": "Asteroidclay",
+	"block.masa.asteroid_rock": "Asteroidrock",
+	"block.masa.asteroid_gold_ore": "Asteroidgoldore",
+	"block.masa.asteroid_silver_ore": "Asteroidsilverore",
+	"block.masa.asteroid_platinum_ore": "Asteroidplatinumore",
+	"block.masa.asteroid_olivine_ore": "Asteroidolivineore",
+	"block.masa.merkur_dust": "Merkurdust",
+	"block.masa.merkur_compressed_dust": "Compressed Merkurdust",
+	"block.masa.merkur_rock": "Merkurrock",
+	"block.masa.merkur_iron_ore": "Merkurironore",
+	"block.masa.merkur_nickel_ore": "Merkurnickelore",
+	"block.masa.venus_dust": "Venusdust",
+	"block.masa.venus_compressed_dust": "Compressed Venusdust",
+	"block.masa.venus_rock": "Venusrock",
+	"block.masa.venus_iron_silicate": "Venusironsilicate",
+	"block.masa.titan_dust": "Titandust",
+	"block.masa.titan_compressed_dust": "Compressed Titandust",
+	"block.masa.titan_rock": "Titanrock",
+	"block.masa.io_sulfur": "Iosulfur",
+	"block.masa.io_sulfur_dust": "Iosulfurdust",
+	"block.masa.io_sulfur_dioxid_dust": "Iosulfurdioxiddust",
+	"block.masa.europa_ice": "Europaice",
+	"block.masa.europa_ice_silicate": "Europaicesilicate",
+	"block.masa.ganymede_dust": "Ganymededust",
+	"block.masa.ganymede_compressed_dust": "Compressed Ganymededust",
+	"block.masa.ganymede_rock": "Ganymederock",
+	"block.masa.ganymede_iron_oxide_ore": "Ganymedeironoxideore",
+	"block.masa.ganymede_iron_sulfide_ore": "Ganymedeironsulfideore",
+	"item.masa.bucket_oil": "Oilbucket",
+	"item.masa.asteroid_olivine_gem": "Asteroidolivinegem"
+
+>>>>>>> branch 'main' of https://github.com/MASA-Mod/MASA-Mod
 }
