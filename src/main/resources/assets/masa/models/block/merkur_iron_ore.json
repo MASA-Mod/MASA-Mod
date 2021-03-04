@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "masa:block/merkur_iron_ore",
+    "down": "masa:block/merkur_iron_ore",
+    "up": "masa:block/merkur_iron_ore",
+    "east": "masa:block/merkur_iron_ore",
+    "west": "masa:block/merkur_iron_ore",
+    "north": "masa:block/merkur_iron_ore",
+    "south": "masa:block/merkur_iron_ore"
+  }
+}

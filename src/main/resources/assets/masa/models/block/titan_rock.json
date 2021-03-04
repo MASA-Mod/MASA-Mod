@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "masa:block/titan_rock",
+    "down": "masa:block/titan_rock",
+    "up": "masa:block/titan_rock",
+    "east": "masa:block/titan_rock",
+    "west": "masa:block/titan_rock",
+    "north": "masa:block/titan_rock",
+    "south": "masa:block/titan_rock"
+  }
+}

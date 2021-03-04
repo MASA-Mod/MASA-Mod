@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "masa:block/venus_dust",
+    "down": "masa:block/venus_dust",
+    "up": "masa:block/venus_dust",
+    "east": "masa:block/venus_dust",
+    "west": "masa:block/venus_dust",
+    "north": "masa:block/venus_dust",
+    "south": "masa:block/venus_dust"
+  }
+}

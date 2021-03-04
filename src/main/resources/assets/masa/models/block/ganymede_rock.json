@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "masa:block/ganymede_rock",
+    "down": "masa:block/ganymede_rock",
+    "up": "masa:block/ganymede_rock",
+    "east": "masa:block/ganymede_rock",
+    "west": "masa:block/ganymede_rock",
+    "north": "masa:block/ganymede_rock",
+    "south": "masa:block/ganymede_rock"
+  }
+}

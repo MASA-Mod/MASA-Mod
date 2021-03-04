@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "masa:block/merkur_dust",
+    "down": "masa:block/merkur_dust",
+    "up": "masa:block/merkur_dust",
+    "east": "masa:block/merkur_dust",
+    "west": "masa:block/merkur_dust",
+    "north": "masa:block/merkur_dust",
+    "south": "masa:block/merkur_dust"
+  }
+}

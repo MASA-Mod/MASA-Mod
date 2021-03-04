@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "masa:block/ganymede_compressed_dust",
+    "down": "masa:block/ganymede_compressed_dust",
+    "up": "masa:block/ganymede_compressed_dust",
+    "east": "masa:block/ganymede_compressed_dust",
+    "west": "masa:block/ganymede_compressed_dust",
+    "north": "masa:block/ganymede_compressed_dust",
+    "south": "masa:block/ganymede_compressed_dust"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "masa:block/venus_iron_silicate_ore",
+    "down": "masa:block/venus_iron_silicate_ore",
+    "up": "masa:block/venus_iron_silicate_ore",
+    "east": "masa:block/venus_iron_silicate_ore",
+    "west": "masa:block/venus_iron_silicate_ore",
+    "north": "masa:block/venus_iron_silicate_ore",
+    "south": "masa:block/venus_iron_silicate_ore"
+  }
+}

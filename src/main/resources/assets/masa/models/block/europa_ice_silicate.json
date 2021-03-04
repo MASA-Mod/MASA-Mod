@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "masa:block/europa_ice_silicate",
+    "down": "masa:block/europa_ice_silicate",
+    "up": "masa:block/europa_ice_silicate",
+    "east": "masa:block/europa_ice_silicate",
+    "west": "masa:block/europa_ice_silicate",
+    "north": "masa:block/europa_ice_silicate",
+    "south": "masa:block/europa_ice_silicate"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "masa:block/titan_compressed_dust",
+    "down": "masa:block/titan_compressed_dust",
+    "up": "masa:block/titan_compressed_dust",
+    "east": "masa:block/titan_compressed_dust",
+    "west": "masa:block/titan_compressed_dust",
+    "north": "masa:block/titan_compressed_dust",
+    "south": "masa:block/titan_compressed_dust"
+  }
+}

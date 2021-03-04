@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "masa:block/komet_dust",
+    "down": "masa:block/komet_dust",
+    "up": "masa:block/komet_dust",
+    "east": "masa:block/komet_dust",
+    "west": "masa:block/komet_dust",
+    "north": "masa:block/komet_dust",
+    "south": "masa:block/komet_dust"
+  }
+}

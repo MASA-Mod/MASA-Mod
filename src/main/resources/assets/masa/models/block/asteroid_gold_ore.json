@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "masa:block/asteroid_gold_ore",
+    "down": "masa:block/asteroid_gold_ore",
+    "up": "masa:block/asteroid_gold_ore",
+    "east": "masa:block/asteroid_gold_ore",
+    "west": "masa:block/asteroid_gold_ore",
+    "north": "masa:block/asteroid_gold_ore",
+    "south": "masa:block/asteroid_gold_ore"
+  }
+}

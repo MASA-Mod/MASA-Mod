@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "masa:block/europa_ice",
+    "down": "masa:block/europa_ice",
+    "up": "masa:block/europa_ice",
+    "east": "masa:block/europa_ice",
+    "west": "masa:block/europa_ice",
+    "north": "masa:block/europa_ice",
+    "south": "masa:block/europa_ice"
+  }
+}

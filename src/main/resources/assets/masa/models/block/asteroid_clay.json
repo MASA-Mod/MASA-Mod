@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "masa:block/asteroid_clay",
+    "down": "masa:block/asteroid_clay",
+    "up": "masa:block/asteroid_clay",
+    "east": "masa:block/asteroid_clay",
+    "west": "masa:block/asteroid_clay",
+    "north": "masa:block/asteroid_clay",
+    "south": "masa:block/asteroid_clay"
+  }
+}

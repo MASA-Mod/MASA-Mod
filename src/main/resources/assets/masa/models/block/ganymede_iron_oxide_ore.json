@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "masa:block/ganymede_iron_oxide_ore",
+    "down": "masa:block/ganymede_iron_oxide_ore",
+    "up": "masa:block/ganymede_iron_oxide_ore",
+    "east": "masa:block/ganymede_iron_oxide_ore",
+    "west": "masa:block/ganymede_iron_oxide_ore",
+    "north": "masa:block/ganymede_iron_oxide_ore",
+    "south": "masa:block/ganymede_iron_oxide_ore"
+  }
+}

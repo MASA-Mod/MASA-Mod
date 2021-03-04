@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "masa:block/moon_cheese_ore",
+    "down": "masa:block/moon_cheese_ore",
+    "up": "masa:block/moon_cheese_ore",
+    "east": "masa:block/moon_cheese_ore",
+    "west": "masa:block/moon_cheese_ore",
+    "north": "masa:block/moon_cheese_ore",
+    "south": "masa:block/moon_cheese_ore"
+  }
+}
