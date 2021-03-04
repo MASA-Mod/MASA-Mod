@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "masa:block/firstblock",
+    "down": "masa:block/firstblock",
+    "up": "masa:block/firstblock",
+    "east": "masa:block/firstblock",
+    "west": "masa:block/firstblock",
+    "north": "masa:block/firstblock",
+    "south": "masa:block/firstblock"
+  }
+}
