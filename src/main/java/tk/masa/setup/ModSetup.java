@@ -1,5 +1,6 @@
 package tk.masa.setup;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
@@ -13,6 +14,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import tk.masa.masa;
 import tk.masa.commands.ModCommands;
+import tk.masa.data.DataHandler;
 import tk.masa.data.TeamWorldSavedData;
 import tk.masa.dimension.ModDimensions;
 
@@ -37,34 +39,15 @@ public class ModSetup {
     @SubscribeEvent
     public static void onWorldLoad(WorldEvent.Load event)
 	{
-    	System.out.println("LOADW");
     	if (event.getWorld() instanceof ServerWorld) {
-    		
-    		ServerWorld s = (ServerWorld) event.getWorld();
-
-            ServerWorld overworld = s.getServer().getWorld(DimensionType.OVERWORLD);
-            
-            TeamWorldSavedData twsd = TeamWorldSavedData.get(overworld);
-            //CompoundNBT nbt = twsd.data;
-            //System.out.println("-----");
-            //System.out.println(nbt.getString());
+    		DataHandler.init(event.getWorld().getWorld());
         }
 
 	}
     
     @SubscribeEvent
     public static void onWorldSave(WorldEvent.Save event) {
-    	System.out.println("SAVEW");
-    	if (event.getWorld() instanceof ServerWorld) {
-    		
-            //ServerWorld server = (ServerWorld) event.getWorld();
-            //ServerWorld overworld = server.getServer().getWorld(DimensionType.OVERWORLD);
-            //TeamWorldSavedData twsd = TeamWorldSavedData.get(overworld);
-            //CompoundNBT nbt = new CompoundNBT();
-        	//nbt.putString("Team", "test");
-            //twsd.write(nbt);
 
-        }
 
     }
     

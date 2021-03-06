@@ -21,8 +21,8 @@ import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.ITeleporter;
 import tk.masa.blocks.ModBlocks;
+import tk.masa.data.DataHandler;
 import tk.masa.dimension.ModDimensions;
-import tk.masa.other.LearningSystem;
 import tk.masa.other.ReaseachEnum;
 import tk.masa.setup.Registration;
 
@@ -50,17 +50,20 @@ public class TestItem extends Item{
     	BlockPos pos = context.getPos();
     	World world = context.getWorld();
     	
+    	//DataHandler.addPlayer("TestTeam", context.getPlayer().getDisplayName().getString());
+    	DataHandler.addAspectToPlayer(context.getPlayer().getName().getString(), ReaseachEnum.PREASURE_ORBIT);
+    	
     	if(world.isRemote){
     		BlockState bs = world.getBlockState(pos);
     		
     		if(bs == ModBlocks.ASTEROID_ROCK.getDefaultState()) {
-    			LearningSystem.research(ReaseachEnum.PROBE_KOMET);
+    			DataHandler.addAspectToPlayer(context.getPlayer().getName().getString(), ReaseachEnum.PROBE_KOMET);
     			context.getPlayer().sendStatusMessage(new TranslationTextComponent("item.probe.komet"), true);
     		}else if(bs == Blocks.STONE.getDefaultState()) {
-    			LearningSystem.research(ReaseachEnum.PROBE_EARTH);
+    			DataHandler.addAspectToPlayer(context.getPlayer().getName().getString(), ReaseachEnum.PROBE_EARTH);
     			context.getPlayer().sendStatusMessage(new TranslationTextComponent("item.probe.earth"), true);
     		}else if(bs == ModBlocks.MOON_ROCK.getDefaultState()) {
-    			LearningSystem.research(ReaseachEnum.PROBE_MOON);
+    			DataHandler.addAspectToPlayer(context.getPlayer().getName().getString(), ReaseachEnum.PROBE_MOON);
     			context.getPlayer().sendStatusMessage(new TranslationTextComponent("item.probe.moon"), true);
     		}else {
     			context.getPlayer().sendStatusMessage(new TranslationTextComponent("item.probe.none"), true);
