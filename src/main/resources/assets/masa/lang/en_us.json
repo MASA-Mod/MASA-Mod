@@ -41,6 +41,9 @@
 	"block.masa.ganymede_iron_oxide_ore": "Ganymede Iron Oxide Ore",
 	"block.masa.ganymede_iron_sulfide_ore": "Ganymede Iron Sulfide Ore",
 	"item.masa.bucket_oil": "Oil Bucket",
-	"item.masa.asteroid_olivine_gem": "Olivine Gem"
+	"item.masa.asteroid_olivine_gem": "Olivine Gem",
+	"container.iron_furnace": "Iron Furnace",
+	"block.masa.iron_furnace": "Iron Furnace"
+	
 
 }

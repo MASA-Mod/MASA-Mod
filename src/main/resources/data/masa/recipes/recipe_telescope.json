@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "",
+   "pattern": [
+    " D ",
+    " E ",
+    "   "
+  ],
+  "key": {
+    "D": {
+      "item": "masa:telescope_head"
+    },
+    "E": {
+      "item": "masa:stativ"
+    }
+  },
+  "result": {
+    "item": "masa:telescope"
+  }
+}

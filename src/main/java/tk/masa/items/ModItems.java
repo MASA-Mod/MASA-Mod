@@ -76,4 +76,13 @@ public class ModItems {
 	public static Item comet_ice = Registration.COMET_ICE_ITEM.get();
 	public static Item comet_core_rock = Registration.COMET_CORE_ROCK_ITEM.get();
 	public static Item comet_dust = Registration.COMET_DUST_ITEM.get();
+	
+	
+	//Items---------------------------------
+	public static Item lens = Registration.LENS_ITEM.get();
+	public static Item iron_stick = Registration.IRON_STICK_ITEM.get();
+	public static Item stativ = Registration.STATIV_ITEM.get();
+	public static Item telescope_head = Registration.TELESCOPE_HEAD_ITEM.get();
+	public static Item telescope = Registration.TELESCOPE_ITEM.get();
+	
 }

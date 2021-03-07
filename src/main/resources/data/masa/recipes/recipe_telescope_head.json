@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "",
+   "pattern": [
+    "FDF",
+    "E E",
+    "FDF"
+  ],
+  "key": {
+    "D": {
+      "item": "masa:lens"
+    },
+    "E": {
+      "item": "minecraft:iron_ingot"
+    },
+    "F": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "masa:telescope_head"
+  }
+}

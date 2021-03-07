@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "",
+   "pattern": [
+    " D ",
+    " D ",
+    "   "
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+  	"count": 2,
+    "item": "masa:iron_stick"
+  }
+}

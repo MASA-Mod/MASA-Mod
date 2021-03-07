@@ -206,11 +206,19 @@ public class Registration {
     //Testore
     public static final RegistryObject<Block> MOON_ORE = BLOCKS.register("moon_ore", () -> new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(1f, 1f).harvestTool(ToolType.PICKAXE).harvestLevel(2).sound(SoundType.STONE)))));
     public static final RegistryObject<Item> MOON_ORE_ITEM = ITEMS.register("moon_ore", () -> new BlockItem(MOON_ORE.get(), new Item.Properties().group(ItemGroup.MISC)));
-    public static final RegistryObject<Item> MOON_DIAMONDITEM = ITEMS.register("moon_diamond", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> MOON_DIAMOND_ITEM = ITEMS.register("moon_diamond", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
 
     //Tech
     //public static final RegistryObject<Block> GANYMEDE_IRON_OXIDE_ORE = BLOCKS.register("ganymede_iron_oxide_ore", () -> new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(1f, 1f).harvestTool(ToolType.PICKAXE).harvestLevel(0).sound(SoundType.STONE)));
     //public static final RegistryObject<Item> GANYMEDE_IRON_OXIDE_ORE_ITEM = ITEMS.register("ganymede_iron_oxide_ore", () -> new BlockItem(GANYMEDE_IRON_OXIDE_ORE.get(), new Item.Properties().group(ItemGroup.MISC)));
+    
+    
+    //Items---------------------------------
+    public static final RegistryObject<Item> LENS_ITEM = ITEMS.register("lens", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> IRON_STICK_ITEM = ITEMS.register("iron_stick", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> STATIV_ITEM = ITEMS.register("stativ", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> TELESCOPE_HEAD_ITEM = ITEMS.register("telescope_head", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> TELESCOPE_ITEM = ITEMS.register("telescope", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
 
     
 }
