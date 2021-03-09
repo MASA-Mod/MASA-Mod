@@ -219,6 +219,8 @@ public class Registration {
     public static final RegistryObject<Item> STATIV_ITEM = ITEMS.register("stativ", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
     public static final RegistryObject<Item> TELESCOPE_HEAD_ITEM = ITEMS.register("telescope_head", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
     public static final RegistryObject<Item> TELESCOPE_ITEM = ITEMS.register("telescope", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> SLAG_ITEM = ITEMS.register("slag", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> SLAG_COMPRESSED_ITEM = ITEMS.register("slag_compressed", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
 
     
 }

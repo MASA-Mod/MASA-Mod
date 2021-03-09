@@ -18,11 +18,11 @@
 	"block.masa.asteroid_platinum_ore": "Asteroid Platinum Ore",
 	"block.masa.asteroid_olivine_ore": "Asteroid Olivine Ore",
 	"block.masa.asteroid_olivine_gem": "Asteroid Olivine Gem",
-	"block.masa.merkur_dust": "Mercury Dust",
-	"block.masa.merkur_compressed_dust": "Compressed Mercury Dust",
-	"block.masa.merkur_rock": "Mercury Rock",
-	"block.masa.merkur_iron_ore": "Mercury Iron Ore",
-	"block.masa.merkur_nickel_ore": "Mercury Nickel Ore",
+	"block.masa.mercury_dust": "Mercury Dust",
+	"block.masa.mercury_compressed_dust": "Compressed Mercury Dust",
+	"block.masa.mercury_rock": "Mercury Rock",
+	"block.masa.mercury_iron_ore": "Mercury Iron Ore",
+	"block.masa.mercury_nickel_ore": "Mercury Nickel Ore",
 	"block.masa.venus_dust": "Venus Dust",
 	"block.masa.venus_compressed_dust": "Compressed Venus Dust",
 	"block.masa.venus_rock": "Venus Rock",
@@ -43,7 +43,13 @@
 	"item.masa.bucket_oil": "Oil Bucket",
 	"item.masa.asteroid_olivine_gem": "Olivine Gem",
 	"container.iron_furnace": "Iron Furnace",
-	"block.masa.iron_furnace": "Iron Furnace"
+	"block.masa.iron_furnace": "Iron Furnace",
+	"item.masa.slag": "Slag",
+	"item.masa.slag_compressed": "Compressed Slag",
+	"item.masa.lens": "Lens",
+	"item.masa.iron_stick": "Iron Stick",
+	"item.masa.stativ": "Stativ",
+	"item.masa.telescope_head": "Telescope Head"
 	
 
 }
