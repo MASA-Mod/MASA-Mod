@@ -84,5 +84,7 @@ public class ModItems {
 	public static Item stativ = Registration.STATIV_ITEM.get();
 	public static Item telescope_head = Registration.TELESCOPE_HEAD_ITEM.get();
 	public static Item telescope = Registration.TELESCOPE_ITEM.get();
+	public static Item slag = Registration.SLAG_ITEM.get();
+	public static Item slag_block = Registration.SLAG_COMPRESSED_ITEM.get();
 	
 }
