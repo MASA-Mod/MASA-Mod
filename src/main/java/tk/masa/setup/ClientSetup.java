@@ -5,8 +5,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import tk.masa.masa;
-import tk.masa.tileentitys.generator.BlockGeneratorContainer;
-import tk.masa.tileentitys.generator.BlockGeneratorScreen;
 import tk.masa.tileentitys.ironfurnace.BlockIronFurnaceScreen;
 
 @Mod.EventBusSubscriber(modid = masa.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -15,7 +13,6 @@ public class ClientSetup {
     public static void init(final FMLClientSetupEvent event) {
     	System.out.println("screens!");
         ScreenManager.registerFactory(Registration.IRON_FURNACE_CONTAINER.get(), BlockIronFurnaceScreen::new);
-        ScreenManager.registerFactory(Registration.GENERATOR_CONTAINER.get(), BlockGeneratorScreen::new);
     }
 
 }

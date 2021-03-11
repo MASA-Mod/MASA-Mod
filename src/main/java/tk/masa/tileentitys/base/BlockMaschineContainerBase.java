@@ -49,18 +49,18 @@ public abstract class BlockMaschineContainerBase extends Container {
         this.fields = fields;
         assertIntArraySize(this.fields, 4);
         this.trackIntArray(this.fields);
-
-        this.addSlot(new Slot(te, 0, 56, 17));
-        this.addSlot(new SlotIronFurnaceFuel(this.te, 1, 56, 53));
-        this.addSlot(new SlotIronFurnace(playerEntity, te, 2, 116, 35));
-        this.addSlot(new SlotIronFurnaceAugment(te, 3, 26, 35));
-        
         if (tileEntity != null) {
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
             	System.out.println("itemhandler");
+            	addSlot(new Slot(te, 0, 56, 17));
+                addSlot(new SlotIronFurnaceFuel(this.te, 1, 56, 53));
+                addSlot(new SlotIronFurnace(playerEntity, te, 2, 116, 35));
+                addSlot(new SlotIronFurnaceAugment(te, 3, 26, 35));
                 addSlot(new SlotItemHandler(h, 0, 64, 24));
             });
         }
+      
+        
         
         layoutPlayerInventorySlots(8, 84);
 

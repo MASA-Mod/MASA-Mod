@@ -6,9 +6,11 @@ import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.inventory.StonecutterScreen;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.inventory.container.StonecutterContainer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.Food;
@@ -33,9 +35,6 @@ import tk.masa.biomes.TestBiome;
 import tk.masa.dimension.VoidModDimension;
 import tk.masa.fluids.ModFluids;
 import tk.masa.items.TestItem;
-import tk.masa.tileentitys.generator.BlockGenerator;
-import tk.masa.tileentitys.generator.BlockGeneratorContainer;
-import tk.masa.tileentitys.generator.BlockGeneratorTile;
 import tk.masa.tileentitys.ironfurnace.BlockIronFurnace;
 import tk.masa.tileentitys.ironfurnace.BlockIronFurnaceTile;
 import tk.masa.tileentitys.recipes.BlastFurnaceRecipe;
@@ -69,6 +68,9 @@ public class Registration {
 
     }
     
+    
+ //   StonecutterScreen
+    
 //----------------------------------------
 
     public static final RegistryObject<Biome> TESTBIOME = BIOMES.register("testbiome", TestBiome::new);
@@ -85,16 +87,6 @@ public class Registration {
         BlockPos pos = data.readBlockPos();
         return new BlockIronFurnaceContainer(windowId, Minecraft.getInstance().world, pos, inv, Minecraft.getInstance().player);
     }));
-    //------------------
-    public static final RegistryObject<BlockGenerator> GENERATOR = BLOCKS.register("generator", BlockGenerator::new);
-    public static final RegistryObject<Item> GENERATOR_ITEM = ITEMS.register("generator", () -> new BlockItem(GENERATOR.get(), new Item.Properties().group(ItemGroup.MISC)));
-    public static final RegistryObject<TileEntityType<BlockGeneratorTile>> GENERATOR_TILE = TILES.register("generator", () -> TileEntityType.Builder.create(BlockGeneratorTile::new, GENERATOR.get()).build(null));
-
-    public static final RegistryObject<ContainerType<BlockGeneratorContainer>> GENERATOR_CONTAINER = CONTAINERS.register("generator", () -> IForgeContainerType.create((windowId, inv, data) -> {
-        BlockPos pos = data.readBlockPos();
-        return new BlockGeneratorContainer(windowId, Minecraft.getInstance().world, pos, inv, Minecraft.getInstance().player);
-    }));
-//--------------------------------------------------------------------
     
     
   //fluidtest
