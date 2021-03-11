@@ -1,4 +1,4 @@
-package tk.masa.ironfurnace;
+package tk.masa.tileentitys.ironfurnace;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -10,10 +10,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import tk.masa.setup.Registration;
+import tk.masa.tileentitys.base.BlockMaschineBase;
+import tk.masa.tileentitys.base.BlockMaschineTileBase;
 
 import javax.annotation.Nullable;
 
-public class BlockIronFurnace extends BlockIronFurnaceBase {
+public class BlockIronFurnace extends BlockMaschineBase {
 
     public static final String IRON_FURNACE = "iron_furnace";
 
@@ -24,7 +26,7 @@ public class BlockIronFurnace extends BlockIronFurnaceBase {
     @Override
     public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!player.isCreative()) {
-            BlockIronFurnaceTileBase te = (BlockIronFurnaceTileBase) world.getTileEntity(pos);
+            BlockMaschineTileBase te = (BlockMaschineTileBase) world.getTileEntity(pos);
             if (te.hasCustomName()) {
                 ItemStack itemstack = new ItemStack(Registration.IRON_FURNACE.get());
                 itemstack.setDisplayName(te.getName());

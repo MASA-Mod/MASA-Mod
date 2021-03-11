@@ -1,4 +1,4 @@
-package tk.masa.ironfurnace;
+package tk.masa.tileentitys.base;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -8,32 +8,41 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.IntArray;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import tk.masa.tileentitys.ironfurnace.SlotIronFurnace;
+import tk.masa.tileentitys.ironfurnace.SlotIronFurnaceAugment;
+import tk.masa.tileentitys.ironfurnace.SlotIronFurnaceFuel;
 
 
-public abstract class BlockIronFurnaceContainerBase extends Container {
+public abstract class BlockMaschineContainerBase extends Container {
 
-    protected BlockIronFurnaceTileBase te;
+    protected BlockMaschineTileBase te;
     protected IIntArray fields;
     protected PlayerEntity playerEntity;
     protected IItemHandler playerInventory;
     protected final World world;
+    private TileEntity tileEntity;
 
-    public BlockIronFurnaceContainerBase(ContainerType<?> containerType, int windowId, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player) {
+    public BlockMaschineContainerBase(ContainerType<?> containerType, int windowId, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player) {
         this(containerType, windowId, world, pos, playerInventory, player, new IntArray(4));
     }
 
-    public BlockIronFurnaceContainerBase(ContainerType<?> containerType, int windowId, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player, IIntArray fields) {
+    public BlockMaschineContainerBase(ContainerType<?> containerType, int windowId, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player, IIntArray fields) {
         super(containerType, windowId);
-        this.te = (BlockIronFurnaceTileBase) world.getTileEntity(pos);
+        this.te = (BlockMaschineTileBase) world.getTileEntity(pos);
+        tileEntity = world.getTileEntity(pos);
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
         this.world = playerInventory.player.world;
@@ -45,25 +54,20 @@ public abstract class BlockIronFurnaceContainerBase extends Container {
         this.addSlot(new SlotIronFurnaceFuel(this.te, 1, 56, 53));
         this.addSlot(new SlotIronFurnace(playerEntity, te, 2, 116, 35));
         this.addSlot(new SlotIronFurnaceAugment(te, 3, 26, 35));
+        
+        if (tileEntity != null) {
+            tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
+            	System.out.println("itemhandler");
+                addSlot(new SlotItemHandler(h, 0, 64, 24));
+            });
+        }
+        
         layoutPlayerInventorySlots(8, 84);
 
 
-
-        /**
-        func_216958_a(new IntReferenceHolder() {
-            @Override
-            public int get() {
-                return getEnergy();
-            }
-
-            @Override
-            public void set(int value) {
-                tileEntity.getCapability(CapabilityEnergy.ENERGY).ifPresent(h -> ((CustomEnergyStorage)h).setEnergy(value));
-            }
-        });
-         **/
     }
-
+    
+    
 
     @OnlyIn(Dist.CLIENT)
     public boolean isBurning() {
@@ -94,12 +98,6 @@ public abstract class BlockIronFurnaceContainerBase extends Container {
         this.te.fields.set(id, data);
     }
 
-    /**
-    public int getEnergy() {
-        return tileEntity.getCapability(CapabilityEnergy.ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
-    }
-     **/
-
     @Override
     public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
@@ -118,7 +116,7 @@ public abstract class BlockIronFurnaceContainerBase extends Container {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (BlockIronFurnaceTileBase.isItemFuel(itemstack1)) {
+                } else if (BlockMaschineTileBase.isItemFuel(itemstack1)) {
                     if (!this.mergeItemStack(itemstack1, 1, 2, false)) {
                         return ItemStack.EMPTY;
                     }
@@ -149,8 +147,6 @@ public abstract class BlockIronFurnaceContainerBase extends Container {
         return itemstack;
     }
 
-
-
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
         for (int i = 0 ; i < amount ; i++) {
             addSlot(new SlotItemHandler(handler, index, x, y));
@@ -176,6 +172,7 @@ public abstract class BlockIronFurnaceContainerBase extends Container {
         topRow += 58;
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
     }
+    
     protected boolean func_217057_a(ItemStack p_217057_1_) {
         return this.world.getRecipeManager().getRecipe(IRecipeType.SMELTING, new Inventory(new ItemStack[]{p_217057_1_}), this.world).isPresent();
     }

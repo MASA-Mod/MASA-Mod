@@ -1,16 +1,17 @@
-package tk.masa.ironfurnace;
+package tk.masa.tileentitys.ironfurnace;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import tk.masa.tileentitys.base.BlockMaschineTileBase;
 
 public class SlotIronFurnace extends Slot {
 
     private final PlayerEntity player;
     private int removeCount;
-    private BlockIronFurnaceTileBase te;
+    private BlockMaschineTileBase te;
 
-    public SlotIronFurnace(PlayerEntity player, BlockIronFurnaceTileBase te, int slotIndex, int xPosition, int yPosition) {
+    public SlotIronFurnace(PlayerEntity player, BlockMaschineTileBase te, int slotIndex, int xPosition, int yPosition) {
         super(te, slotIndex, xPosition, yPosition);
         this.player = player;
         this.te = te;
@@ -39,6 +40,7 @@ public class SlotIronFurnace extends Slot {
         super.onTake(thePlayer, stack);
         return stack;
     }
+    
 
     /**
      * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood. Typically increases an
@@ -54,9 +56,7 @@ public class SlotIronFurnace extends Slot {
      */
     protected void onCrafting(ItemStack stack) {
         stack.onCrafting(this.player.world, this.player, this.removeCount);
-        if (!this.player.world.isRemote && this.inventory instanceof BlockIronFurnaceTileBase) {
-            ((BlockIronFurnaceTileBase)this.inventory).func_213995_d(this.player);
-        }
+
 
         this.removeCount = 0;
         net.minecraftforge.fml.hooks.BasicEventHooks.firePlayerSmeltedEvent(this.player, stack);

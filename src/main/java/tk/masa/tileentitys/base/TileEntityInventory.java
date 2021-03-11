@@ -1,4 +1,4 @@
-package tk.masa.ironfurnace;
+package tk.masa.tileentitys.base;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

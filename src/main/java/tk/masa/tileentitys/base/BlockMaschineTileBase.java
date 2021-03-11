@@ -1,12 +1,9 @@
-package tk.masa.ironfurnace;
+package tk.masa.tileentitys.base;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IRecipeHelperPopulator;
@@ -16,7 +13,6 @@ import net.minecraft.inventory.container.FurnaceFuelSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.crafting.AbstractCookingRecipe;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeItemHelper;
@@ -26,38 +22,62 @@ import net.minecraft.tileentity.*;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import tk.masa.tileentitys.recipes.BlastFurnaceRecipe;
+import tk.masa.tools.CustomEnergyStorage;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-public abstract class BlockIronFurnaceTileBase extends TileEntityInventory implements ITickableTileEntity, IRecipeHolder, IRecipeHelperPopulator {
+public abstract class BlockMaschineTileBase extends TileEntityInventory implements ITickableTileEntity, IRecipeHolder, IRecipeHelperPopulator {
     private static final int[] SLOTS_UP = new int[]{0};
     private static final int[] SLOTS_DOWN = new int[]{2, 1};
     private static final int[] SLOTS_HORIZONTAL = new int[]{1};
 
-    private int timer;
-    private int furnaceBurnTime;
+    protected CustomEnergyStorage energyStorage = createEnergy();
+    protected ItemStackHandler itemHandler = createHandler();
+    
+    protected int timer;
+    protected int furnaceBurnTime;
+    
+    protected LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
+    protected LazyOptional<IEnergyStorage> energy = LazyOptional.of(() -> energyStorage);
     /**
      * The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for
      */
-    private int currentItemBurnTime;
-    private int cookTime;
-    private int totalCookTime = this.getCookTime();
-    private final Map<ResourceLocation, Integer> recipeUseCounts = Maps.newHashMap();
+    protected int currentItemBurnTime;
+    protected int cookTime;
+    protected int totalCookTime = this.getCookTime();
+    protected final Map<ResourceLocation, Integer> recipeUseCounts = Maps.newHashMap();
 
     public Map<ResourceLocation, Integer> getRecipeUseCounts() {
         return this.recipeUseCounts;
     }
 
-    protected IRecipeType<? extends AbstractCookingRecipe> recipeType;
+    //protected IRecipeType<? extends AbstractCookingRecipe> recipeType;
+    
+    protected IRecipeType<? extends IRecipe> recipeType;
 
-    public BlockIronFurnaceTileBase(TileEntityType<?> tileentitytypeIn) {
+    public BlockMaschineTileBase(TileEntityType<?> tileentitytypeIn) {
         super(tileentitytypeIn, 4);
-        this.recipeType = IRecipeType.SMELTING;
+        //this.recipeType = BlastFurnaceRecipe.SERIALIZER.;
+        //this.recipeType = 
     }
 
     protected int getCookTime() {
@@ -72,13 +92,13 @@ public abstract class BlockIronFurnaceTileBase extends TileEntityInventory imple
         public int get(int index) {
             switch (index) {
                 case 0:
-                    return BlockIronFurnaceTileBase.this.furnaceBurnTime;
+                    return BlockMaschineTileBase.this.furnaceBurnTime;
                 case 1:
-                    return BlockIronFurnaceTileBase.this.currentItemBurnTime;
+                    return BlockMaschineTileBase.this.currentItemBurnTime;
                 case 2:
-                    return BlockIronFurnaceTileBase.this.cookTime;
+                    return BlockMaschineTileBase.this.cookTime;
                 case 3:
-                    return BlockIronFurnaceTileBase.this.totalCookTime;
+                    return BlockMaschineTileBase.this.totalCookTime;
                 default:
                     return 0;
             }
@@ -87,16 +107,16 @@ public abstract class BlockIronFurnaceTileBase extends TileEntityInventory imple
         public void set(int index, int value) {
             switch (index) {
                 case 0:
-                    BlockIronFurnaceTileBase.this.furnaceBurnTime = value;
+                    BlockMaschineTileBase.this.furnaceBurnTime = value;
                     break;
                 case 1:
-                    BlockIronFurnaceTileBase.this.currentItemBurnTime = value;
+                    BlockMaschineTileBase.this.currentItemBurnTime = value;
                     break;
                 case 2:
-                    BlockIronFurnaceTileBase.this.cookTime = value;
+                    BlockMaschineTileBase.this.cookTime = value;
                     break;
                 case 3:
-                    BlockIronFurnaceTileBase.this.totalCookTime = value;
+                    BlockMaschineTileBase.this.totalCookTime = value;
             }
 
         }
@@ -108,6 +128,10 @@ public abstract class BlockIronFurnaceTileBase extends TileEntityInventory imple
     
     @Override
     public void tick() {
+    	for(Object o: this.inventory.toArray()) {
+    		//System.out.println(o.toString());
+    	}
+    	energyStorage.addEnergy(10);
     	boolean flag1 = false;
         if (this.isBurning()) {
             --this.furnaceBurnTime;
@@ -124,12 +148,22 @@ public abstract class BlockIronFurnaceTileBase extends TileEntityInventory imple
                 this.recipeType = IRecipeType.SMELTING;
             }
             
-            ItemStack itemstack = this.inventory.get(1);
-            if (this.isBurning() || !itemstack.isEmpty() && !this.inventory.get(0).isEmpty()) {
-                IRecipe<?> irecipe = this.world.getRecipeManager().getRecipe((IRecipeType<AbstractCookingRecipe>) this.recipeType, this, this.world).orElse(null);
+            //ItemStack itemstack = this.inventory.get(1);
+            ItemStack itemstack = itemHandler.getStackInSlot(0);
+            if (this.isBurning() || !itemstack.isEmpty()) {
+                //IRecipe<?> irecipe = this.world.getRecipeManager().getRecipe((IRecipeType<AbstractCookingRecipe>) this.recipeType, this, this.world).orElse(null);
+            	//IRecipe<?> irecipe = this.world.getRecipeManager().getRecipe((IRecipeType<BlastFurnaceRecipe>) this.recipeType, this, this.world).orElse(null);
+            	//IRecipe<?> irecipe = this.getRecipe(this.inventory.get(0));
+            	//System.out.println(irecipe.getRecipeOutput().toString());
+            	System.out.println(this.inventory.get(0).getDisplayName().toString());
+            	IRecipe<?> irecipe = BlastFurnaceRecipe.findRecipe(this.inventory.get(0));
+            	if (irecipe != null){
+            		System.out.println(irecipe.getId().getPath().toString());
+            		System.out.println(irecipe.getRecipeOutput().getDisplayName().toString());
+            	}
+            	//
                 if (!this.isBurning() && this.canSmelt(irecipe)) {
-                	
-                	
+            	//if (true) {
                     this.furnaceBurnTime = getBurnTime(itemstack) * this.getCookTime() / 200;
                     this.currentItemBurnTime = this.furnaceBurnTime;
                     if (this.isBurning()) {
@@ -179,8 +213,15 @@ public abstract class BlockIronFurnaceTileBase extends TileEntityInventory imple
     public boolean isBurning() {
         return this.furnaceBurnTime > 0;
     }
-
-    private boolean canSmelt(@Nullable IRecipe recipe) {
+    @Override
+    public void remove() {
+    	super.remove();
+    	handler.invalidate();
+        energy.invalidate();
+    }
+    
+    
+    protected boolean canSmelt(@Nullable IRecipe recipe) {
         if (!this.inventory.get(0).isEmpty() && recipe != null) {
             ItemStack itemstack = recipe.getRecipeOutput();
             if (itemstack.isEmpty()) {
@@ -202,7 +243,7 @@ public abstract class BlockIronFurnaceTileBase extends TileEntityInventory imple
         }
     }
 
-    private void smeltItem(@Nullable IRecipe recipe) {
+    protected void smeltItem(@Nullable IRecipe recipe) {
         timer = 0;
         if (recipe != null && this.canSmelt(recipe)) {
             ItemStack itemstack = this.inventory.get(0);
@@ -228,12 +269,17 @@ public abstract class BlockIronFurnaceTileBase extends TileEntityInventory imple
 
     @Override
     public void read(CompoundNBT tag) {
+    	
+    	itemHandler.deserializeNBT(tag.getCompound("inv"));
+    	
         ItemStackHelper.loadAllItems(tag, this.inventory);
         this.furnaceBurnTime = tag.getInt("BurnTime");
         this.cookTime = tag.getInt("CookTime");
         this.totalCookTime = tag.getInt("CookTimeTotal");
         this.timer = 0;
         this.currentItemBurnTime = getBurnTime(this.inventory.get(1));
+        energyStorage.deserializeNBT(tag.getCompound("energy"));
+        
         int i = tag.getShort("RecipesUsedSize");
         for (int j = 0; j < i; ++j) {
             ResourceLocation resourcelocation = new ResourceLocation(tag.getString("RecipeLocation" + j));
@@ -250,11 +296,15 @@ public abstract class BlockIronFurnaceTileBase extends TileEntityInventory imple
 
     @Override
     public CompoundNBT write(CompoundNBT tag) {
+    	
+    	tag.put("inv", itemHandler.serializeNBT());
+    	
         ItemStackHelper.saveAllItems(tag, this.inventory);
         tag.putInt("BurnTime", this.furnaceBurnTime);
         tag.putInt("CookTime", this.cookTime);
         tag.putInt("CookTimeTotal", this.totalCookTime);
         tag.putShort("RecipesUsedSize", (short) this.recipeUseCounts.size());
+        tag.put("energy", energyStorage.serializeNBT());
         int i = 0;
 
         for (Map.Entry<ResourceLocation, Integer> entry : this.recipeUseCounts.entrySet()) {
@@ -262,12 +312,6 @@ public abstract class BlockIronFurnaceTileBase extends TileEntityInventory imple
             tag.putInt("RecipeAmount" + i, entry.getValue());
             ++i;
         }
-        /**
-         energy.ifPresent(h -> {
-         CompoundNBT compound = ((INBTSerializable<CompoundNBT>) h).serializeNBT();
-         tag.put("energy", compound);
-         });
-         **/
 
         return super.write(tag);
     }
@@ -278,7 +322,7 @@ public abstract class BlockIronFurnaceTileBase extends TileEntityInventory imple
         } else {
             Item item = stack.getItem();
             int ret = stack.getBurnTime();
-            return net.minecraftforge.event.ForgeEventFactory.getItemBurnTime(stack, ret == -1 ? AbstractFurnaceTileEntity.getBurnTimes().getOrDefault(item, 0) : ret);
+            return ForgeEventFactory.getItemBurnTime(stack, ret == -1 ? AbstractFurnaceTileEntity.getBurnTimes().getOrDefault(item, 0) : ret);
         }
     }
 
@@ -288,13 +332,13 @@ public abstract class BlockIronFurnaceTileBase extends TileEntityInventory imple
     }
 
 
-    net.minecraftforge.common.util.LazyOptional<? extends net.minecraftforge.items.IItemHandler>[] handlers =
-            net.minecraftforge.items.wrapper.SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
+    LazyOptional<? extends IItemHandler>[] handlers =
+            SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
 
     @Nonnull
     @Override
-    public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @Nullable Direction facing) {
-        if (!this.removed && facing != null && capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
+        if (!this.removed && facing != null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             if (facing == Direction.UP)
                 return handlers[0].cast();
             else if (facing == Direction.DOWN)
@@ -302,11 +346,14 @@ public abstract class BlockIronFurnaceTileBase extends TileEntityInventory imple
             else
                 return handlers[2].cast();
         }
-        /**
-         if (cap == CapabilityEnergy.ENERGY) {
-         return energy.cast();
-         }
-         **/
+
+        if (capability == CapabilityEnergy.ENERGY) {
+            return energy.cast();
+        }
+        
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return handler.cast();
+        }
         return super.getCapability(capability, facing);
     }
 
@@ -368,38 +415,40 @@ public abstract class BlockIronFurnaceTileBase extends TileEntityInventory imple
             return FurnaceTileEntity.isFuel(stack) || FurnaceFuelSlot.isBucket(stack) && itemstack.getItem() != Items.BUCKET;
         }
     }
-
-    public void func_213995_d(PlayerEntity p_213995_1_) {
-        List<IRecipe<?>> list = Lists.newArrayList();
-
-        for (Map.Entry<ResourceLocation, Integer> entry : this.recipeUseCounts.entrySet()) {
-            p_213995_1_.world.getRecipeManager().getRecipe(entry.getKey()).ifPresent((p_213993_3_) -> {
-                list.add(p_213993_3_);
-                func_214003_a(p_213995_1_, entry.getValue(), ((AbstractCookingRecipe) p_213993_3_).getExperience());
-            });
-        }
-
-        p_213995_1_.unlockRecipes(list);
-        this.recipeUseCounts.clear();
+    
+    private CustomEnergyStorage createEnergy() {
+        return new CustomEnergyStorage(100000, 0) {
+            @Override
+            protected void onEnergyChanged() {
+                markDirty();
+            }
+        };
     }
+    private ItemStackHandler createHandler() {
+        return new ItemStackHandler(1) {
 
-    private static void func_214003_a(PlayerEntity p_214003_0_, int p_214003_1_, float p_214003_2_) {
-        if (p_214003_2_ == 0.0F) {
-            p_214003_1_ = 0;
-        } else if (p_214003_2_ < 1.0F) {
-            int i = MathHelper.floor((float) p_214003_1_ * p_214003_2_);
-            if (i < MathHelper.ceil((float) p_214003_1_ * p_214003_2_) && Math.random() < (double) ((float) p_214003_1_ * p_214003_2_ - (float) i)) {
-                ++i;
+            @Override
+            protected void onContentsChanged(int slot) {
+                // To make sure the TE persists when the chunk is saved later we need to
+                // mark it dirty every time the item handler changes
+                markDirty();
             }
 
-            p_214003_1_ = i;
-        }
+            @Override
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+               // return stack.getItem() == Items.DIAMOND;
+            	return true;
+            }
 
-        while (p_214003_1_ > 0) {
-            int j = ExperienceOrbEntity.getXPSplit(p_214003_1_);
-            p_214003_1_ -= j;
-            p_214003_0_.world.addEntity(new ExperienceOrbEntity(p_214003_0_.world, p_214003_0_.prevPosX, p_214003_0_.prevPosY + 0.5D, p_214003_0_.prevPosZ + 0.5D, j));
-        }
-
+            @Nonnull
+            @Override
+            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+                if (stack.getItem() != Items.DIAMOND) {
+                  //  return stack;
+                }
+                return super.insertItem(slot, stack, simulate);
+            }
+        };
     }
+
 }

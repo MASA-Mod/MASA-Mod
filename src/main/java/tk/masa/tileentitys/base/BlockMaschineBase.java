@@ -1,4 +1,4 @@
-package tk.masa.ironfurnace;
+package tk.masa.tileentitys.base;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -28,9 +28,9 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public abstract class BlockIronFurnaceBase extends Block {
+public abstract class BlockMaschineBase extends Block {
 
-    public BlockIronFurnaceBase(Properties properties) {
+    public BlockMaschineBase(Properties properties) {
         super(properties);
         this.setDefaultState(this.getDefaultState().with(BlockStateProperties.LIT, false));
     }
@@ -60,7 +60,7 @@ public abstract class BlockIronFurnaceBase extends Block {
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
         if (entity != null) {
-            BlockIronFurnaceTileBase te = (BlockIronFurnaceTileBase) world.getTileEntity(pos);
+            BlockMaschineTileBase te = (BlockMaschineTileBase) world.getTileEntity(pos);
             if (stack.hasDisplayName()) {
                 te.setCustomName(stack.getDisplayName());
             }
@@ -114,8 +114,8 @@ public abstract class BlockIronFurnaceBase extends Block {
     public void onReplaced(BlockState state, World world, BlockPos pos, BlockState oldState, boolean p_196243_5_) {
         if (state.getBlock() != oldState.getBlock()) {
             TileEntity te = world.getTileEntity(pos);
-            if (te instanceof BlockIronFurnaceTileBase) {
-                InventoryHelper.dropInventoryItems(world, pos, (BlockIronFurnaceTileBase) te);
+            if (te instanceof BlockMaschineTileBase) {
+                InventoryHelper.dropInventoryItems(world, pos, (BlockMaschineTileBase) te);
                 world.updateComparatorOutputLevel(pos, this);
             }
 

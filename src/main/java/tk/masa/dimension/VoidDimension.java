@@ -10,9 +10,12 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.dimension.NetherDimension;
+import net.minecraft.world.dimension.OverworldDimension;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.OverworldChunkGenerator;
+import net.minecraftforge.client.IRenderHandler;
 
 public class VoidDimension extends Dimension{
 	
@@ -46,7 +49,7 @@ public class VoidDimension extends Dimension{
 	    public SleepResult canSleepAt(PlayerEntity player, BlockPos pos) {
 	        return SleepResult.ALLOW;
 	    }
-
+	    
 	    @Override
 	    public float calculateCelestialAngle(long worldTime, float partialTicks) {
 	        double d0 = MathHelper.frac((double)worldTime / 2400.0D - 0.25D);
@@ -79,5 +82,6 @@ public class VoidDimension extends Dimension{
 	    public boolean doesXZShowFog(int x, int z) {
 	        return false;
 	    }
+	    
 
 }
