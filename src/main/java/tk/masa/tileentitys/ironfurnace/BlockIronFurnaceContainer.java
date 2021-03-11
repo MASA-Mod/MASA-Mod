@@ -1,4 +1,4 @@
-package tk.masa.ironfurnace;
+package tk.masa.tileentitys.ironfurnace;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -7,8 +7,9 @@ import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import tk.masa.setup.Registration;
+import tk.masa.tileentitys.base.BlockMaschineContainerBase;
 
-public class BlockIronFurnaceContainer extends BlockIronFurnaceContainerBase {
+public class BlockIronFurnaceContainer extends BlockMaschineContainerBase {
 
     public BlockIronFurnaceContainer(int windowId, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player) {
         super(Registration.IRON_FURNACE_CONTAINER.get(), windowId, world, pos, playerInventory, player);

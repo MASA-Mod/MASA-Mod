@@ -1,11 +1,12 @@
-package tk.masa.ironfurnace;
+package tk.masa.tileentitys.generator;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import tk.masa.setup.Registration;
+import tk.masa.tileentitys.base.BlockMaschineTileBase;
 
-public class BlockIronFurnaceTile extends BlockIronFurnaceTileBase {
-    public BlockIronFurnaceTile() {
+public class BlockGeneratorTile extends BlockMaschineTileBase {
+    public BlockGeneratorTile() {
         super(Registration.IRON_FURNACE_TILE.get());
     }
 
@@ -16,12 +17,12 @@ public class BlockIronFurnaceTile extends BlockIronFurnaceTileBase {
 
     @Override
     public String IgetName() {
-        return "container.iron_furnace";
+        return "container.generator";
     }
 
     @Override
     public Container IcreateMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return new BlockIronFurnaceContainer(i, world, pos, playerInventory, playerEntity, this.fields);
+        return new BlockGeneratorContainer(i, world, pos, playerInventory, playerEntity, this.fields);
     }
 
 }

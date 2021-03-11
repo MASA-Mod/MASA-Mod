@@ -1,0 +1,11 @@
+{
+    "type": "masa:heat_press_recipe",   
+	"result": {
+	     "item": "masa:carbon"   
+	},   
+	"input": {
+	     "item": "masa:coal_compressed_dust"   
+	},   
+	"time": 200 
+
+}

@@ -1,13 +1,14 @@
-package tk.masa.ironfurnace;
+package tk.masa.tileentitys.ironfurnace;
 
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import tk.masa.tileentitys.base.BlockMaschineTileBase;
 
 public class SlotIronFurnaceAugment extends Slot {
 
-    private BlockIronFurnaceTileBase te;
+    private BlockMaschineTileBase te;
 
-    public SlotIronFurnaceAugment(BlockIronFurnaceTileBase te, int slotIndex, int xPosition, int yPosition) {
+    public SlotIronFurnaceAugment(BlockMaschineTileBase te, int slotIndex, int xPosition, int yPosition) {
         super(te, slotIndex, xPosition, yPosition);
         this.te = te;
     }

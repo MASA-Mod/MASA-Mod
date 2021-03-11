@@ -1,12 +1,11 @@
 package tk.masa.setup;
-
+import static tk.masa.masa.MODID;
 import net.minecraft.block.Block;
 import net.minecraft.block.FallingBlock;
 import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.command.CommandSource;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.ContainerType;
@@ -15,17 +14,14 @@ import net.minecraft.item.BucketItem;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-
-import static tk.masa.masa.MODID;
-
-import com.mojang.brigadier.CommandDispatcher;
-
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.extensions.IForgeContainerType;
-
-
-import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.ModDimension;
 import net.minecraftforge.common.ToolType;
@@ -34,14 +30,18 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import tk.masa.biomes.TestBiome;
-import tk.masa.blocks.BlockList;
-import tk.masa.blocks.FirstBlock;
 import tk.masa.dimension.VoidModDimension;
 import tk.masa.fluids.ModFluids;
-import tk.masa.ironfurnace.BlockIronFurnace;
-import tk.masa.ironfurnace.BlockIronFurnaceContainer;
-import tk.masa.ironfurnace.BlockIronFurnaceTile;
 import tk.masa.items.TestItem;
+import tk.masa.tileentitys.generator.BlockGenerator;
+import tk.masa.tileentitys.generator.BlockGeneratorContainer;
+import tk.masa.tileentitys.generator.BlockGeneratorTile;
+import tk.masa.tileentitys.ironfurnace.BlockIronFurnace;
+import tk.masa.tileentitys.ironfurnace.BlockIronFurnaceTile;
+import tk.masa.tileentitys.recipes.BlastFurnaceRecipe;
+import tk.masa.tileentitys.recipes.BlastFurnaceRecipeSerializer;
+import tk.masa.tileentitys.recipes.MasaRecipeSerializer;
+import tk.masa.tileentitys.ironfurnace.BlockIronFurnaceContainer;
 
 public class Registration {
 	
@@ -53,7 +53,9 @@ public class Registration {
     private static final DeferredRegister<ModDimension> DIMENSIONS = new DeferredRegister<>(ForgeRegistries.MOD_DIMENSIONS, MODID);
     private static final DeferredRegister<Biome> BIOMES = new DeferredRegister<>(ForgeRegistries.BIOMES, MODID);
     private static final DeferredRegister<Fluid> FLUIDS = new DeferredRegister<>(ForgeRegistries.FLUIDS, MODID);
-    
+    //private static final DeferredRegister<SpecialRecipeSerializer<IRecipe<?>>> RECIPE_SERIALIZER = new DeferredRegister<>(ForgeRegistries.RECIPE_SERIALIZERS, MODID);
+    public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = new DeferredRegister<>(ForgeRegistries.RECIPE_SERIALIZERS, MODID);
+
     public static void init() {
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -63,6 +65,7 @@ public class Registration {
         DIMENSIONS.register(FMLJavaModLoadingContext.get().getModEventBus());
         BIOMES.register(FMLJavaModLoadingContext.get().getModEventBus());
         FLUIDS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        RECIPE_SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
     }
     
@@ -72,6 +75,8 @@ public class Registration {
     public static final RegistryObject<VoidModDimension> DIMENSION = DIMENSIONS.register("dimension", VoidModDimension::new);
     
     
+    public static final RegistryObject<BlastFurnaceRecipeSerializer> OBSIDIAN_FORGE_RECIPES = RECIPE_SERIALIZERS.register("blast_recipe", BlastFurnaceRecipeSerializer::new);
+    
     public static final RegistryObject<BlockIronFurnace> IRON_FURNACE = BLOCKS.register(BlockIronFurnace.IRON_FURNACE, BlockIronFurnace::new);
     public static final RegistryObject<Item> IRON_FURNACE_ITEM = ITEMS.register(BlockIronFurnace.IRON_FURNACE, () -> new BlockItem(IRON_FURNACE.get(), new Item.Properties().group(ItemGroup.MISC)));
     public static final RegistryObject<TileEntityType<BlockIronFurnaceTile>> IRON_FURNACE_TILE = TILES.register(BlockIronFurnace.IRON_FURNACE, () -> TileEntityType.Builder.create(BlockIronFurnaceTile::new, IRON_FURNACE.get()).build(null));
@@ -80,10 +85,15 @@ public class Registration {
         BlockPos pos = data.readBlockPos();
         return new BlockIronFurnaceContainer(windowId, Minecraft.getInstance().world, pos, inv, Minecraft.getInstance().player);
     }));
-    
-    
-    
-    
+    //------------------
+    public static final RegistryObject<BlockGenerator> GENERATOR = BLOCKS.register("generator", BlockGenerator::new);
+    public static final RegistryObject<Item> GENERATOR_ITEM = ITEMS.register("generator", () -> new BlockItem(GENERATOR.get(), new Item.Properties().group(ItemGroup.MISC)));
+    public static final RegistryObject<TileEntityType<BlockGeneratorTile>> GENERATOR_TILE = TILES.register("generator", () -> TileEntityType.Builder.create(BlockGeneratorTile::new, GENERATOR.get()).build(null));
+
+    public static final RegistryObject<ContainerType<BlockGeneratorContainer>> GENERATOR_CONTAINER = CONTAINERS.register("generator", () -> IForgeContainerType.create((windowId, inv, data) -> {
+        BlockPos pos = data.readBlockPos();
+        return new BlockGeneratorContainer(windowId, Minecraft.getInstance().world, pos, inv, Minecraft.getInstance().player);
+    }));
 //--------------------------------------------------------------------
     
     
@@ -211,8 +221,7 @@ public class Registration {
     //Tech
     //public static final RegistryObject<Block> GANYMEDE_IRON_OXIDE_ORE = BLOCKS.register("ganymede_iron_oxide_ore", () -> new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(1f, 1f).harvestTool(ToolType.PICKAXE).harvestLevel(0).sound(SoundType.STONE)));
     //public static final RegistryObject<Item> GANYMEDE_IRON_OXIDE_ORE_ITEM = ITEMS.register("ganymede_iron_oxide_ore", () -> new BlockItem(GANYMEDE_IRON_OXIDE_ORE.get(), new Item.Properties().group(ItemGroup.MISC)));
-    
-    
+
     //Items---------------------------------
     public static final RegistryObject<Item> LENS_ITEM = ITEMS.register("lens", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
     public static final RegistryObject<Item> IRON_STICK_ITEM = ITEMS.register("iron_stick", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));

@@ -1,4 +1,4 @@
-package tk.masa.ironfurnace;
+package tk.masa.tileentitys.base;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -10,13 +10,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import tk.masa.masa;
 
 @OnlyIn(Dist.CLIENT)
-public abstract class BlockIronFurnaceScreenBase<T extends BlockIronFurnaceContainerBase> extends ContainerScreen<T> {
+public abstract class BlockMaschineScreenBase<T extends BlockMaschineContainerBase> extends ContainerScreen<T> {
 
     public ResourceLocation GUI = new ResourceLocation(masa.MODID + ":" +"textures/gui/furnace.png");
     PlayerInventory playerInv;
     ITextComponent name;
 
-    public BlockIronFurnaceScreenBase(T t, PlayerInventory inv, ITextComponent name) {
+    public BlockMaschineScreenBase(T t, PlayerInventory inv, ITextComponent name) {
         super(t, inv, name);
         playerInv = inv;
         this.name = name;
@@ -44,12 +44,12 @@ public abstract class BlockIronFurnaceScreenBase<T extends BlockIronFurnaceConta
         int relY = (this.height - this.ySize) / 2;
         this.blit(relX, relY, 0, 0, this.xSize, this.ySize);
         int i;
-        if (((BlockIronFurnaceContainerBase)this.container).isBurning()) {
-            i = ((BlockIronFurnaceContainerBase)this.container).getBurnScaled(13);
+        if (((BlockMaschineContainerBase)this.container).isBurning()) {
+            i = ((BlockMaschineContainerBase)this.container).getBurnScaled(13);
             this.blit(guiLeft + 56, guiTop + 36 + 12 - i, 176, 12 - i, 14, i + 1);
         }
 
-        i = ((BlockIronFurnaceContainerBase)this.container).getCookScaled(24);
+        i = ((BlockMaschineContainerBase)this.container).getCookScaled(24);
         this.blit(guiLeft + 79, guiTop + 34, 176, 14, i + 1, 16);
     }
 

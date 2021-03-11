@@ -1,4 +1,4 @@
-package tk.masa.ironfurnace;
+package tk.masa.tileentitys.generator;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -10,23 +10,23 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import tk.masa.setup.Registration;
+import tk.masa.tileentitys.base.BlockMaschineBase;
+import tk.masa.tileentitys.base.BlockMaschineTileBase;
 
 import javax.annotation.Nullable;
 
-public class BlockIronFurnace extends BlockIronFurnaceBase {
-
-    public static final String IRON_FURNACE = "iron_furnace";
-
-    public BlockIronFurnace() {
+public class BlockGenerator extends BlockMaschineBase {
+	
+    public BlockGenerator() {
         super(Properties.from(Blocks.IRON_BLOCK));
     }
 
     @Override
     public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!player.isCreative()) {
-            BlockIronFurnaceTileBase te = (BlockIronFurnaceTileBase) world.getTileEntity(pos);
+            BlockMaschineTileBase te = (BlockMaschineTileBase) world.getTileEntity(pos);
             if (te.hasCustomName()) {
-                ItemStack itemstack = new ItemStack(Registration.IRON_FURNACE.get());
+                ItemStack itemstack = new ItemStack(Registration.GENERATOR.get());
                 itemstack.setDisplayName(te.getName());
                 world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemstack));
             } else {
@@ -44,6 +44,6 @@ public class BlockIronFurnace extends BlockIronFurnaceBase {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new BlockIronFurnaceTile();
+        return new BlockGeneratorTile();
     }
 }

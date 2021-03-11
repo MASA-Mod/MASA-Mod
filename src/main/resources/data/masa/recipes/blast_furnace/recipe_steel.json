@@ -1,0 +1,13 @@
+{
+    "type": "masa:blast_furnace_recipe",   
+	"result": {
+	     "item": "masa:steel"   
+	},   
+	"input": {
+	     "item": "masa:coal_dust" 
+	},   
+	"time": 10 
+
+}
+
+ //"item": "masa:iron_dust"
