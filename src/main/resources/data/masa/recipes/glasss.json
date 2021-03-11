@@ -1,0 +1,10 @@
+{
+  "type": "masa:blast_recipe",
+  "result": {
+    "item": "minecraft:diamond"
+  },
+  "input": {
+    "item": "minecraft:coal"
+  },
+  "time": 10
+}

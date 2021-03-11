@@ -216,11 +216,47 @@ public class Registration {
     //Testore
     public static final RegistryObject<Block> MOON_ORE = BLOCKS.register("moon_ore", () -> new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(1f, 1f).harvestTool(ToolType.PICKAXE).harvestLevel(2).sound(SoundType.STONE)))));
     public static final RegistryObject<Item> MOON_ORE_ITEM = ITEMS.register("moon_ore", () -> new BlockItem(MOON_ORE.get(), new Item.Properties().group(ItemGroup.MISC)));
-    public static final RegistryObject<Item> MOON_DIAMONDITEM = ITEMS.register("moon_diamond", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> MOON_DIAMOND_ITEM = ITEMS.register("moon_diamond", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
 
     //Tech
     //public static final RegistryObject<Block> GANYMEDE_IRON_OXIDE_ORE = BLOCKS.register("ganymede_iron_oxide_ore", () -> new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(1f, 1f).harvestTool(ToolType.PICKAXE).harvestLevel(0).sound(SoundType.STONE)));
     //public static final RegistryObject<Item> GANYMEDE_IRON_OXIDE_ORE_ITEM = ITEMS.register("ganymede_iron_oxide_ore", () -> new BlockItem(GANYMEDE_IRON_OXIDE_ORE.get(), new Item.Properties().group(ItemGroup.MISC)));
+
+    //Items---------------------------------
+    public static final RegistryObject<Item> LENS_ITEM = ITEMS.register("lens", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> IRON_STICK_ITEM = ITEMS.register("iron_stick", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> STATIV_ITEM = ITEMS.register("stativ", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> TELESCOPE_HEAD_ITEM = ITEMS.register("telescope_head", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> TELESCOPE_ITEM = ITEMS.register("telescope", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> SLAG_ITEM = ITEMS.register("slag", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> SLAG_COMPRESSED_ITEM = ITEMS.register("slag_compressed", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    //new
+    public static final RegistryObject<Item> COAL_DUST_ITEM = ITEMS.register("coal_dust", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> IRON_DUST_ITEM = ITEMS.register("iron_dust", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> OBSIDIAN_CRUSHED_ITEM = ITEMS.register("obsidian_crushed", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> STEEL_ITEM = ITEMS.register("steel", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> CASING_ITEM = ITEMS.register("casing", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> COAL_COMPRESSED_DUST_ITEM = ITEMS.register("coal_compressed_dust", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> CARBON_PLATE_ITEM = ITEMS.register("carbon_plate", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> OBSIDIAN_PLATE_ITEM = ITEMS.register("obsidian_plate", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> INSULATED_CASING_ITEM = ITEMS.register("insulated_casting", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> REINFORCED_PLATE_ITEM = ITEMS.register("reinforced_plate", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> ROCKET_CASING_ITEM = ITEMS.register("rocket_casing", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> COPPER_WIRE_ITEM = ITEMS.register("copper_wire", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> SHEET_WOODEN_ITEM = ITEMS.register("wooden_sheet", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> PCB_PLATE_WOODEN_ITEM = ITEMS.register("pcb_plate_wooden", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    //new
+    public static final RegistryObject<Item> GOLD_DUST_ITEM = ITEMS.register("gold_dust", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> WOODEN_PLATE_ITEM = ITEMS.register("wooden_plate", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> IRON_PLATE_ITEM = ITEMS.register("iron_plate", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
+    public static final RegistryObject<Item> COPPER_PLATE_ITEM = ITEMS.register("copper_plate", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(64)));
     
     
+    
+    
+    
+    
+    
+    
+
 }

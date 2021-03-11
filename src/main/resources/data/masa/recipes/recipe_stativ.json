@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "",
+   "pattern": [
+    " D ",
+    " D ",
+    "DDD"
+  ],
+  "key": {
+    "D": {
+      "item": "masa:iron_stick"
+    }
+  },
+  "result": {
+    "item": "masa:stativ"
+  }
+}

@@ -1,0 +1,11 @@
+{
+    "type": "masa:heat_press_recipe",   
+	"result": {
+	     "item": "masa:obsidian_plate"   
+	},   
+	"input": {
+	     "item": "masa:obsidian_crushed"   
+	},   
+	"time": 200 
+
+}
