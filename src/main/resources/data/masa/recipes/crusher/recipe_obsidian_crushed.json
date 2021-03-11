@@ -1,0 +1,11 @@
+{
+    "type": "masa:crusher_recipe",   
+	"result": {
+	     "item": "masa:obsidian_crushed"   
+	},   
+	"input": {
+	     "item": "minecraft:obsidian"   
+	},   
+	"time": 100
+
+}

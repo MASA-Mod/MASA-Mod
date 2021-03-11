@@ -1,0 +1,11 @@
+{
+    "type": "masa:crusher_recipe",   
+	"result": {
+	     "item": "masa:gold_dust"   
+	},   
+	"input": {
+	     "item": "minecraft:gold_ingot"   
+	},   
+	"time": 100 
+
+}

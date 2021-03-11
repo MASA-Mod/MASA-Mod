@@ -1,0 +1,11 @@
+{
+    "type": "masa:crusher_recipe",   
+	"result": {
+	     "item": "masa:coal_dust"   
+	},   
+	"input": {
+	     "item": "minecraft:coal"   
+	},   
+	"time": 100
+
+}
