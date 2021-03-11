@@ -86,5 +86,33 @@ public class ModItems {
 	public static Item telescope = Registration.TELESCOPE_ITEM.get();
 	public static Item slag = Registration.SLAG_ITEM.get();
 	public static Item slag_block = Registration.SLAG_COMPRESSED_ITEM.get();
+	public static Item coal_dust = Registration.COAL_DUST_ITEM.get();
+	public static Item iron_dust = Registration.IRON_DUST_ITEM.get();
+	public static Item obsidian_crushed = Registration.OBSIDIAN_CRUSHED_ITEM.get();
+	public static Item steel = Registration.STEEL_ITEM.get();
+	public static Item casing = Registration.CASING_ITEM.get();
+	public static Item coal_compressed = Registration.COAL_COMPRESSED_DUST_ITEM.get();
+	public static Item carbon_plate = Registration.CARBON_PLATE_ITEM.get();
+	public static Item obsidian_plate = Registration.OBSIDIAN_PLATE_ITEM.get();
+	public static Item insulated_casing = Registration.INSULATED_CASING_ITEM.get();
+	public static Item reinforced_plate = Registration.REINFORCED_PLATE_ITEM.get();
+	public static Item rocket_casing = Registration.ROCKET_CASING_ITEM.get();
+	public static Item copper_wire = Registration.COPPER_WIRE_ITEM.get();
+	public static Item sheet_wooden = Registration.SHEET_WOODEN_ITEM.get();
+	public static Item pcb_plate_wooden = Registration.PCB_PLATE_WOODEN_ITEM.get();
+	//new
+	public static Item iron_plate = Registration.IRON_PLATE_ITEM.get();
+	public static Item copper_plate_wooden = Registration.COPPER_PLATE_ITEM.get();
+	public static Item wooden_plate = Registration.WOODEN_PLATE_ITEM.get();
+	public static Item gold_dust = Registration.GOLD_DUST_ITEM.get();
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

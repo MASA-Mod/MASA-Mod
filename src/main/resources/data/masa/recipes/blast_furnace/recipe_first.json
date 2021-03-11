@@ -1,0 +1,11 @@
+{
+    "type": "masa:blast_furnace_recipe",   
+	"result": {
+	     "item": "masa."   
+	},   
+	"input": {
+	     "item": "minecraft:coal"   
+	},   
+	"time": 10 
+
+}

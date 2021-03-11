@@ -49,7 +49,26 @@
 	"item.masa.lens": "Lens",
 	"item.masa.iron_stick": "Iron Stick",
 	"item.masa.stativ": "Stativ",
-	"item.masa.telescope_head": "Telescope Head"
-	
+	"item.masa.telescope": "Telescope Head",
+	"item.masa.telescope_head": "Telescope",
+	"item.masa.insulated_casting": "Insulated Casting",
+	"item.masa.obsidian_plate": "Obsidian Plate",
+	"item.masa.carbon_plate": "Carbon Plate",
+	"item.masa.coal_compressed_dust": "Compressed Coal Dust",
+	"item.masa.casing": "Casing",
+	"item.masa.steel": "Steel",
+	"item.masa.obsidian_crushed": "Crushed Obsidian",
+	"item.masa.iron_dust": "Iron Dust",
+	"item.masa.coal_dust": "Coal Dust",
+	"item.masa.gold_dust": "Gold Dust",
+	"item.masa.rocket_casing": "Rocket Casing",
+	"item.masa.copper_wire": "Copper Wire",
+	"item.masa.pcb_plate_wooden": "PCB Wooden Plate",
+	"item.masa.reinforced_plate": "Reinforced Plate",
+	"item.masa.wooden_sheet": "Wooden Sheet",
+	"item.masa.wooden_plate": "Wooden Plate",
+	"item.masa.iron_plate": "Iron Plate",
+	"item.masa.copper_plate": "Copper Plate"
+
 
 }
