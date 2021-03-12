@@ -71,8 +71,6 @@ public abstract class BlockMaschineTileBase extends TileEntityInventory implemen
 
     public BlockMaschineTileBase(TileEntityType<?> tileentitytypeIn) {
         super(tileentitytypeIn, 4);
-        //this.recipeType = BlastFurnaceRecipe.SERIALIZER.;
-        //this.recipeType = 
     }
 
     protected int getCookTime() {

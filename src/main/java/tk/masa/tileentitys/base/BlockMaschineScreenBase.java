@@ -1,6 +1,8 @@
 package tk.masa.tileentitys.base;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
@@ -12,7 +14,7 @@ import tk.masa.masa;
 @OnlyIn(Dist.CLIENT)
 public abstract class BlockMaschineScreenBase<T extends BlockMaschineContainerBase> extends ContainerScreen<T> {
 
-    public ResourceLocation GUI = new ResourceLocation(masa.MODID + ":" +"textures/gui/furnace.png");
+    public ResourceLocation GUI;
     PlayerInventory playerInv;
     ITextComponent name;
 
@@ -31,7 +33,7 @@ public abstract class BlockMaschineScreenBase<T extends BlockMaschineContainerBa
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        //drawString(Minecraft.getInstance().fontRenderer, "Energy: " + container.getEnergy(), 10, 10, 0xffffff);
+        drawString(Minecraft.getInstance().fontRenderer, "Energy: " + container.getEnergy(), 10, 10, 0xffffff);
         this.minecraft.fontRenderer.drawString(this.playerInv.getDisplayName().getUnformattedComponentText(), 7, this.ySize - 93, 4210752);
         this.minecraft.fontRenderer.drawString(name.getUnformattedComponentText(), 7 + this.xSize / 2 - this.minecraft.fontRenderer.getStringWidth(name.getUnformattedComponentText()) / 2, 6, 4210752);
     }

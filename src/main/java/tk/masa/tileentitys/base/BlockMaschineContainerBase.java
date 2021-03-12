@@ -10,20 +10,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIntArray;
-import net.minecraft.util.IntArray;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import tk.masa.tileentitys.ironfurnace.SlotIronFurnace;
-import tk.masa.tileentitys.ironfurnace.SlotIronFurnaceAugment;
-import tk.masa.tileentitys.ironfurnace.SlotIronFurnaceFuel;
 
 
 public abstract class BlockMaschineContainerBase extends Container {
@@ -33,11 +26,7 @@ public abstract class BlockMaschineContainerBase extends Container {
     protected PlayerEntity playerEntity;
     protected IItemHandler playerInventory;
     protected final World world;
-    private TileEntity tileEntity;
-
-    public BlockMaschineContainerBase(ContainerType<?> containerType, int windowId, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player) {
-        this(containerType, windowId, world, pos, playerInventory, player, new IntArray(4));
-    }
+    protected TileEntity tileEntity;
 
     public BlockMaschineContainerBase(ContainerType<?> containerType, int windowId, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player, IIntArray fields) {
         super(containerType, windowId);
@@ -49,17 +38,7 @@ public abstract class BlockMaschineContainerBase extends Container {
         this.fields = fields;
         assertIntArraySize(this.fields, 4);
         this.trackIntArray(this.fields);
-        if (tileEntity != null) {
-            tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-            	System.out.println("itemhandler");
-            	addSlot(new Slot(te, 0, 56, 17));
-                addSlot(new SlotIronFurnaceFuel(this.te, 1, 56, 53));
-                addSlot(new SlotIronFurnace(playerEntity, te, 2, 116, 35));
-                addSlot(new SlotIronFurnaceAugment(te, 3, 26, 35));
-                addSlot(new SlotItemHandler(h, 0, 64, 24));
-            });
-        }
-      
+        
         
         
         layoutPlayerInventorySlots(8, 84);
@@ -96,6 +75,10 @@ public abstract class BlockMaschineContainerBase extends Container {
     public void updateProgressBar(int id, int data) {
         super.updateProgressBar(id, data);
         this.te.fields.set(id, data);
+    }
+    
+    public int getEnergy() {
+        return te.energyStorage.getEnergyStored();
     }
 
     @Override
