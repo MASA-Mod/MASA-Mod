@@ -74,20 +74,18 @@ public abstract class BlockMaschineBase extends Block {
         if (world.isRemote) {
             return ActionResultType.SUCCESS;
         } else {
-           
             this.interactWith(world, pos, player);
             return ActionResultType.SUCCESS;
         }
-
     }
-
+    
     private void interactWith(World world, BlockPos pos, PlayerEntity player) {
         TileEntity tileEntity = world.getTileEntity(pos);
         if (tileEntity instanceof INamedContainerProvider) {
             NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tileEntity, tileEntity.getPos());
-            player.addStat(Stats.INTERACT_WITH_FURNACE);
         }
     }
+
 
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {

@@ -35,6 +35,9 @@ import tk.masa.biomes.TestBiome;
 import tk.masa.dimension.VoidModDimension;
 import tk.masa.fluids.ModFluids;
 import tk.masa.items.TestItem;
+import tk.masa.tileentitys.compressor.BlockCompressor;
+import tk.masa.tileentitys.compressor.BlockCompressorContainer;
+import tk.masa.tileentitys.compressor.BlockCompressorTile;
 import tk.masa.tileentitys.ironfurnace.BlockIronFurnace;
 import tk.masa.tileentitys.ironfurnace.BlockIronFurnaceTile;
 import tk.masa.tileentitys.recipes.BlastFurnaceRecipe;
@@ -78,15 +81,28 @@ public class Registration {
     
     
     public static final RegistryObject<BlastFurnaceRecipeSerializer> OBSIDIAN_FORGE_RECIPES = RECIPE_SERIALIZERS.register("blast_recipe", BlastFurnaceRecipeSerializer::new);
-    
     public static final RegistryObject<BlockIronFurnace> IRON_FURNACE = BLOCKS.register(BlockIronFurnace.IRON_FURNACE, BlockIronFurnace::new);
     public static final RegistryObject<Item> IRON_FURNACE_ITEM = ITEMS.register(BlockIronFurnace.IRON_FURNACE, () -> new BlockItem(IRON_FURNACE.get(), new Item.Properties().group(ItemGroup.MISC)));
     public static final RegistryObject<TileEntityType<BlockIronFurnaceTile>> IRON_FURNACE_TILE = TILES.register(BlockIronFurnace.IRON_FURNACE, () -> TileEntityType.Builder.create(BlockIronFurnaceTile::new, IRON_FURNACE.get()).build(null));
-
     public static final RegistryObject<ContainerType<BlockIronFurnaceContainer>> IRON_FURNACE_CONTAINER = CONTAINERS.register(BlockIronFurnace.IRON_FURNACE, () -> IForgeContainerType.create((windowId, inv, data) -> {
         BlockPos pos = data.readBlockPos();
         return new BlockIronFurnaceContainer(windowId, Minecraft.getInstance().world, pos, inv, Minecraft.getInstance().player);
     }));
+    
+    
+    
+    
+    //public static final RegistryObject<BlastFurnaceRecipeSerializer> COMPRESSOR_RECIPES = RECIPE_SERIALIZERS.register("compressor_recipe", BlastFurnaceRecipeSerializer::new);
+    public static final RegistryObject<BlockCompressor> COMPRESSOR = BLOCKS.register(BlockCompressor.COMPRESSOR, BlockCompressor::new);
+    public static final RegistryObject<Item> COMPRESSOR_ITEM = ITEMS.register(BlockCompressor.COMPRESSOR, () -> new BlockItem(COMPRESSOR.get(), new Item.Properties().group(ItemGroup.MISC)));
+    public static final RegistryObject<TileEntityType<BlockCompressorTile>> COMPRESSOR_TILE = TILES.register(BlockCompressor.COMPRESSOR, () -> TileEntityType.Builder.create(BlockCompressorTile::new, COMPRESSOR.get()).build(null));
+    public static final RegistryObject<ContainerType<BlockCompressorContainer>> COMPRESSOR_CONTAINER = CONTAINERS.register(BlockCompressor.COMPRESSOR, () -> IForgeContainerType.create((windowId, inv, data) -> {
+        BlockPos pos = data.readBlockPos();
+        return new BlockCompressorContainer(windowId, Minecraft.getInstance().world, pos, inv, Minecraft.getInstance().player);
+    }));
+    
+    
+    
     
     
   //fluidtest

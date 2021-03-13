@@ -30,7 +30,6 @@ public class BlastFurnaceRecipe extends MasaSerializableRecipe
 		this.input = input;
 		this.time = time;
 		this.slag = slag;
-		System.out.println(this.id.toString());
 		recipeList.put(id, this);
 		
 	}
@@ -41,15 +40,12 @@ public class BlastFurnaceRecipe extends MasaSerializableRecipe
 		return output;
 	}
 
-	// Initialized by reload listener
-	//public static Map<ResourceLocation, BlastFurnaceRecipe> recipeList = Collections.emptyMap();
 	public static HashMap<ResourceLocation, BlastFurnaceRecipe> recipeList = new HashMap<>();
 
 	public static BlastFurnaceRecipe findRecipe(ItemStack input)
 	{
 		System.out.println(recipeList.values().toString());
 		for(BlastFurnaceRecipe recipe : recipeList.values()) {
-			System.out.println(recipe.output);
 			if(recipe.input.test(input)) {
 				
 				return recipe;

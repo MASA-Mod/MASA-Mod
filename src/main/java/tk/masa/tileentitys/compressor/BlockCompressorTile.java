@@ -1,4 +1,4 @@
-package tk.masa.tileentitys.ironfurnace;
+package tk.masa.tileentitys.compressor;
 import javax.annotation.Nonnull;
 
 import net.minecraft.block.BlockState;
@@ -17,9 +17,10 @@ import tk.masa.setup.Registration;
 import tk.masa.tileentitys.base.BlockMaschineTileBase;
 import tk.masa.tileentitys.recipes.BlastFurnaceRecipe;
 
-public class BlockIronFurnaceTile extends BlockMaschineTileBase {
-    public BlockIronFurnaceTile() {
-        super(Registration.IRON_FURNACE_TILE.get());
+public class BlockCompressorTile extends BlockMaschineTileBase {
+    public BlockCompressorTile() {
+        super(Registration.COMPRESSOR_TILE.get());
+        
     }
 
     @Override
@@ -29,22 +30,19 @@ public class BlockIronFurnaceTile extends BlockMaschineTileBase {
 
     @Override
     public String IgetName() {
-        return "container.iron_furnace";
+        return "container.compressor";
     }
 
     @Override
     public Container IcreateMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return new BlockIronFurnaceContainer(i, world, pos, playerInventory, playerEntity, this.fields);
+        return new BlockCompressorContainer(i, world, pos, playerInventory, playerEntity, this.fields);
     }
     
     @Override
     public void tick() {
-    	energyStorage.addEnergy(200);
+    	energyStorage.addEnergy(100);
     	boolean flag1 = false;
-        if (this.isBurning()) {
-            --this.furnaceBurnTime;
-        }
-
+        
         if (!this.world.isRemote) {
             timer++;
             
@@ -106,18 +104,28 @@ public class BlockIronFurnaceTile extends BlockMaschineTileBase {
     }
 
     public ItemStackHandler createHandler() {
-        return new ItemStackHandler(2) {
+        return new ItemStackHandler(7) {
 
             @Override
             protected void onContentsChanged(int slot) {
-                // To make sure the TE persists when the chunk is saved later we need to
-                // mark it dirty every time the item handler changes
                 markDirty();
             }
 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                // return stack.getItem() == Items.DIAMOND;
+            	switch (slot) {
+					case 6:
+						return false;
+					case 4:
+						if(stack.getItem() != Registration.COPPER_WIRE_ITEM.get()) {
+							return false;
+						}
+						break;
+					default:
+						break;	
+				}
+            	
             	return true;
             }
 
@@ -131,5 +139,4 @@ public class BlockIronFurnaceTile extends BlockMaschineTileBase {
             }
         };
     }
-     
 }

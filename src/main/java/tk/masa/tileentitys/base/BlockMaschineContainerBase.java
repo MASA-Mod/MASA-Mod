@@ -36,14 +36,6 @@ public abstract class BlockMaschineContainerBase extends Container {
         this.playerInventory = new InvWrapper(playerInventory);
         this.world = playerInventory.player.world;
         this.fields = fields;
-        assertIntArraySize(this.fields, 4);
-        this.trackIntArray(this.fields);
-        
-        
-        
-        layoutPlayerInventorySlots(8, 84);
-
-
     }
     
     
@@ -58,6 +50,13 @@ public abstract class BlockMaschineContainerBase extends Container {
         int lvt_1_1_ = this.fields.get(2);
         int lvt_2_1_ = this.fields.get(3);
         return lvt_2_1_ != 0 && lvt_1_1_ != 0 ? lvt_1_1_ * pixels / lvt_2_1_ : 0;
+    }
+    
+    @OnlyIn(Dist.CLIENT)
+    public int getEnergyScaled(int pixels) {
+        int energy = te.energyStorage.getEnergyStored();
+        int maxEnergy = te.energyStorage.getMaxEnergyStored();
+        return maxEnergy != 0 && energy != 0 ? energy * pixels / maxEnergy : 0;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -89,7 +88,7 @@ public abstract class BlockMaschineContainerBase extends Container {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
             if (index == 2) {
-                if (!this.mergeItemStack(itemstack1, 3, 39, true)) {
+                if (!this.mergeItemStack(itemstack1, 3, this.inventorySlots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
 
@@ -99,18 +98,14 @@ public abstract class BlockMaschineContainerBase extends Container {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (BlockMaschineTileBase.isItemFuel(itemstack1)) {
-                    if (!this.mergeItemStack(itemstack1, 1, 2, false)) {
-                        return ItemStack.EMPTY;
-                    }
                 } else if (index >= 4 && index < 30) {
-                    if (!this.mergeItemStack(itemstack1, 30, 39, false)) {
+                    if (!this.mergeItemStack(itemstack1, 30, this.inventorySlots.size(), false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (index >= 30 && index < 39 && !this.mergeItemStack(itemstack1, 4, 30, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.mergeItemStack(itemstack1, 4, 39, false)) {
+            } else if (!this.mergeItemStack(itemstack1, 4, this.inventorySlots.size(), false)) {
                 return ItemStack.EMPTY;
             }
 
@@ -147,7 +142,7 @@ public abstract class BlockMaschineContainerBase extends Container {
         return index;
     }
 
-    private void layoutPlayerInventorySlots(int leftCol, int topRow) {
+    protected void layoutPlayerInventorySlots(int leftCol, int topRow) {
         // Player inventory
         addSlotBox(playerInventory, 9, leftCol, topRow, 9, 18, 3, 18);
 

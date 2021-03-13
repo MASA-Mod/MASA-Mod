@@ -25,14 +25,12 @@ public class BlockIronFurnaceContainer extends BlockMaschineContainerBase {
         if (tileEntity != null) {
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
             	System.out.println("itemhandler");
-            	addSlot(new Slot(te, 0, 56, 17));
-                addSlot(new SlotIronFurnaceFuel(this.te, 1, 56, 64));
-            	//addSlot(new SlotItemHandler(h, 1, 64, 60));
-                addSlot(new SlotIronFurnace(playerEntity, te, 2, 116, 35));
-                addSlot(new SlotIronFurnaceAugment(te, 3, 26, 35));
                 addSlot(new SlotItemHandler(h, 0, 64, 24));
+                addSlot(new SlotItemHandler(h, 1, 64, 54));
                 
             });
+            
+            layoutPlayerInventorySlots(8, 84);
         }
       
         

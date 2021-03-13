@@ -38,6 +38,7 @@ import tk.masa.tools.CustomEnergyStorage;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public abstract class BlockMaschineTileBase extends TileEntityInventory implements ITickableTileEntity, IRecipeHolder, IRecipeHelperPopulator {
@@ -45,6 +46,9 @@ public abstract class BlockMaschineTileBase extends TileEntityInventory implemen
     private static final int[] SLOTS_DOWN = new int[]{2, 1};
     private static final int[] SLOTS_HORIZONTAL = new int[]{1};
 
+    //protected CustomEnergyStorage energyStorage = createEnergy();
+    //protected ItemStackHandler itemHandler = createHandler();
+    
     protected CustomEnergyStorage energyStorage = createEnergy();
     protected ItemStackHandler itemHandler = createHandler();
     
@@ -53,10 +57,10 @@ public abstract class BlockMaschineTileBase extends TileEntityInventory implemen
     
     protected LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     protected LazyOptional<IEnergyStorage> energy = LazyOptional.of(() -> energyStorage);
-    /**
-     * The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for
-     */
-    protected int currentItemBurnTime;
+    
+    //protected LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
+    //protected LazyOptional<IEnergyStorage> energy = LazyOptional.of(() -> energyStorage);
+
     protected int cookTime;
     protected int totalCookTime = this.getCookTime();
     protected final Map<ResourceLocation, Integer> recipeUseCounts = Maps.newHashMap();
@@ -87,7 +91,7 @@ public abstract class BlockMaschineTileBase extends TileEntityInventory implemen
                 case 0:
                     return BlockMaschineTileBase.this.furnaceBurnTime;
                 case 1:
-                    return BlockMaschineTileBase.this.currentItemBurnTime;
+                    return BlockMaschineTileBase.this.furnaceBurnTime;
                 case 2:
                     return BlockMaschineTileBase.this.cookTime;
                 case 3:
@@ -103,7 +107,7 @@ public abstract class BlockMaschineTileBase extends TileEntityInventory implemen
                     BlockMaschineTileBase.this.furnaceBurnTime = value;
                     break;
                 case 1:
-                    BlockMaschineTileBase.this.currentItemBurnTime = value;
+                    BlockMaschineTileBase.this.furnaceBurnTime = value;
                     break;
                 case 2:
                     BlockMaschineTileBase.this.cookTime = value;
@@ -133,25 +137,31 @@ public abstract class BlockMaschineTileBase extends TileEntityInventory implemen
     
     
     protected boolean canSmelt(@Nullable IRecipe recipe) {
+    	ArrayList<ItemStack> outputslots = new ArrayList<>();
+    	outputslots.add(this.inventory.get(2));
         if (!this.inventory.get(0).isEmpty() && recipe != null) {
             ItemStack itemstack = recipe.getRecipeOutput();
             if (itemstack.isEmpty()) {
                 return false;
             } else {
-                ItemStack itemstack1 = this.inventory.get(2);
-                if (itemstack1.isEmpty()) {
-                    return true;
-                } else if (!itemstack1.isItemEqual(itemstack)) {
-                    return false;
-                } else if (itemstack1.getCount() + itemstack.getCount() <= this.getInventoryStackLimit() && itemstack1.getCount() < itemstack1.getMaxStackSize()) { // Forge fix: make furnace respect stack sizes in furnace recipes
-                    return true;
-                } else {
-                    return itemstack1.getCount() + itemstack.getCount() <= itemstack.getMaxStackSize(); // Forge fix: make furnace respect stack sizes in furnace recipes
-                }
+            	for(ItemStack itemstack1 : outputslots) {
+	                if (itemstack1.isEmpty()) {
+	                    return true;
+	                } else if (!itemstack1.isItemEqual(itemstack)) {
+	                    return false;
+	                } else if (itemstack1.getCount() + itemstack.getCount() <= this.getInventoryStackLimit() && itemstack1.getCount() + + itemstack.getCount() <= itemstack1.getMaxStackSize()) { // Forge fix: make furnace respect stack sizes in furnace recipes
+	                    continue;
+	                } else {
+	                    return itemstack1.getCount() + itemstack.getCount() <= itemstack.getMaxStackSize(); // Forge fix: make furnace respect stack sizes in furnace recipes
+	                }
+	            }
             }
         } else {
             return false;
         }
+        
+        return true;
+        
     }
 
     protected void smeltItem(@Nullable IRecipe recipe) {
@@ -170,10 +180,6 @@ public abstract class BlockMaschineTileBase extends TileEntityInventory implemen
                 this.canUseRecipe(this.world, (ServerPlayerEntity) null, recipe);
             }
 
-            if (itemstack.getItem() == Blocks.WET_SPONGE.asItem() && !this.inventory.get(1).isEmpty() && this.inventory.get(1).getItem() == Items.BUCKET) {
-                this.inventory.set(1, new ItemStack(Items.WATER_BUCKET));
-            }
-
             itemstack.shrink(1);
         }
     }
@@ -184,11 +190,9 @@ public abstract class BlockMaschineTileBase extends TileEntityInventory implemen
     	itemHandler.deserializeNBT(tag.getCompound("inv"));
     	
         ItemStackHelper.loadAllItems(tag, this.inventory);
-        this.furnaceBurnTime = tag.getInt("BurnTime");
         this.cookTime = tag.getInt("CookTime");
         this.totalCookTime = tag.getInt("CookTimeTotal");
         this.timer = 0;
-        this.currentItemBurnTime = getBurnTime(this.inventory.get(1));
         energyStorage.deserializeNBT(tag.getCompound("energy"));
         
         int i = tag.getShort("RecipesUsedSize");
@@ -197,10 +201,6 @@ public abstract class BlockMaschineTileBase extends TileEntityInventory implemen
             int k = tag.getInt("RecipeAmount" + j);
             this.recipeUseCounts.put(resourcelocation, k);
         }
-        /**
-         CompoundNBT energyTag = tag.getCompound("energy");
-         energy.ifPresent(h -> ((INBTSerializable<CompoundNBT>) h).deserializeNBT(energyTag));
-         **/
 
         super.read(tag);
     }
@@ -211,7 +211,6 @@ public abstract class BlockMaschineTileBase extends TileEntityInventory implemen
     	tag.put("inv", itemHandler.serializeNBT());
     	
         ItemStackHelper.saveAllItems(tag, this.inventory);
-        tag.putInt("BurnTime", this.furnaceBurnTime);
         tag.putInt("CookTime", this.cookTime);
         tag.putInt("CookTimeTotal", this.totalCookTime);
         tag.putShort("RecipesUsedSize", (short) this.recipeUseCounts.size());
@@ -226,22 +225,6 @@ public abstract class BlockMaschineTileBase extends TileEntityInventory implemen
 
         return super.write(tag);
     }
-
-    protected static int getBurnTime(ItemStack stack) {
-        if (stack.isEmpty()) {
-            return 0;
-        } else {
-            Item item = stack.getItem();
-            int ret = stack.getBurnTime();
-            return ForgeEventFactory.getItemBurnTime(stack, ret == -1 ? AbstractFurnaceTileEntity.getBurnTimes().getOrDefault(item, 0) : ret);
-        }
-    }
-
-
-    public static boolean isItemFuel(ItemStack stack) {
-        return getBurnTime(stack) > 0;
-    }
-
 
     LazyOptional<? extends IItemHandler>[] handlers =
             SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
@@ -314,18 +297,6 @@ public abstract class BlockMaschineTileBase extends TileEntityInventory implemen
         }
         return true;
     }
-
-    @Override
-    public boolean IisItemValidForSlot(int index, ItemStack stack) {
-        if (index == 2) {
-            return false;
-        } else if (index != 1) {
-            return true;
-        } else {
-            ItemStack itemstack = this.inventory.get(1);
-            return FurnaceTileEntity.isFuel(stack) || FurnaceFuelSlot.isBucket(stack) && itemstack.getItem() != Items.BUCKET;
-        }
-    }
     
     private CustomEnergyStorage createEnergy() {
         return new CustomEnergyStorage(100000, 0) {
@@ -335,31 +306,13 @@ public abstract class BlockMaschineTileBase extends TileEntityInventory implemen
             }
         };
     }
-    private ItemStackHandler createHandler() {
-        return new ItemStackHandler(1) {
-
-            @Override
-            protected void onContentsChanged(int slot) {
-                // To make sure the TE persists when the chunk is saved later we need to
-                // mark it dirty every time the item handler changes
-                markDirty();
-            }
-
-            @Override
-            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-               // return stack.getItem() == Items.DIAMOND;
-            	return true;
-            }
-
-            @Nonnull
-            @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                if (stack.getItem() != Items.DIAMOND) {
-                  //  return stack;
-                }
-                return super.insertItem(slot, stack, simulate);
-            }
-        };
-    }
+    
+    //private ItemStackHandler createHandler() {
+    public abstract ItemStackHandler createHandler();
+    
+	@Override
+	public boolean IisItemValidForSlot(int index, ItemStack stack) {
+		return false;
+	}
 
 }
