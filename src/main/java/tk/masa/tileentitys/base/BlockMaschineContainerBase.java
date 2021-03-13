@@ -41,12 +41,12 @@ public abstract class BlockMaschineContainerBase extends Container {
     
 
     @OnlyIn(Dist.CLIENT)
-    public boolean isBurning() {
-        return this.te.isBurning();
+    public boolean isRunning() {
+        return this.te.isRunning();
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getCookScaled(int pixels) {
+    public int getProgressScaled(int pixels) {
         int lvt_1_1_ = this.fields.get(2);
         int lvt_2_1_ = this.fields.get(3);
         return lvt_2_1_ != 0 && lvt_1_1_ != 0 ? lvt_1_1_ * pixels / lvt_2_1_ : 0;
@@ -60,24 +60,10 @@ public abstract class BlockMaschineContainerBase extends Container {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getBurnScaled(int pixels) {
-        int lvt_1_1_ = this.fields.get(1);
-        if (lvt_1_1_ == 0) {
-            lvt_1_1_ = 200;
-        }
-
-        return this.fields.get(0) * pixels / lvt_1_1_;
-    }
-
-    @OnlyIn(Dist.CLIENT)
     @Override
     public void updateProgressBar(int id, int data) {
         super.updateProgressBar(id, data);
         this.te.fields.set(id, data);
-    }
-    
-    public int getEnergy() {
-        return te.energyStorage.getEnergyStored();
     }
 
     @Override

@@ -125,9 +125,10 @@ public abstract class BlockMaschineTileBase extends TileEntityInventory implemen
     
    
 
-    public boolean isBurning() {
+    public boolean isRunning() {
         return this.furnaceBurnTime > 0;
     }
+    
     @Override
     public void remove() {
     	super.remove();
@@ -136,7 +137,7 @@ public abstract class BlockMaschineTileBase extends TileEntityInventory implemen
     }
     
     
-    protected boolean canSmelt(@Nullable IRecipe recipe) {
+    protected boolean canProcess(@Nullable IRecipe recipe) {
     	ArrayList<ItemStack> outputslots = new ArrayList<>();
     	outputslots.add(this.inventory.get(2));
         if (!this.inventory.get(0).isEmpty() && recipe != null) {
@@ -164,9 +165,9 @@ public abstract class BlockMaschineTileBase extends TileEntityInventory implemen
         
     }
 
-    protected void smeltItem(@Nullable IRecipe recipe) {
+    protected void processItem(@Nullable IRecipe recipe) {
         timer = 0;
-        if (recipe != null && this.canSmelt(recipe)) {
+        if (recipe != null && this.canProcess(recipe)) {
             ItemStack itemstack = this.inventory.get(0);
             ItemStack itemstack1 = recipe.getRecipeOutput();
             ItemStack itemstack2 = this.inventory.get(2);

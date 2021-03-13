@@ -41,7 +41,7 @@ public class BlockIronFurnaceTile extends BlockMaschineTileBase {
     public void tick() {
     	energyStorage.addEnergy(200);
     	boolean flag1 = false;
-        if (this.isBurning()) {
+        if (this.isRunning()) {
             --this.furnaceBurnTime;
         }
 
@@ -54,14 +54,14 @@ public class BlockIronFurnaceTile extends BlockMaschineTileBase {
             
             //ItemStack itemstack = this.inventory.get(1);
             ItemStack itemstack = itemHandler.getStackInSlot(0);
-            if (this.isBurning() || !itemstack.isEmpty()) {
+            if (this.isRunning() || !itemstack.isEmpty()) {
             	IRecipe<?> irecipe = BlastFurnaceRecipe.findRecipe(this.inventory.get(0));
             	if (irecipe != null){
             		System.out.println(irecipe.getId().getPath().toString());
             		System.out.println(irecipe.getRecipeOutput().getDisplayName().toString());
             	}
             	//
-                if (this.canSmelt(irecipe)) {
+                if (this.canProcess(irecipe)) {
             	//if (true) {
                         flag1 = true;
                         if (true) {
@@ -78,18 +78,18 @@ public class BlockIronFurnaceTile extends BlockMaschineTileBase {
                         }
                 }
 
-                if (this.canSmelt(irecipe)) {
+                if (this.canProcess(irecipe)) {
                     ++this.cookTime;
                     if (this.cookTime >= this.totalCookTime) {
                         this.cookTime = 0;
                         this.totalCookTime = this.getCookTime();
-                        this.smeltItem(irecipe);
+                        this.processItem(irecipe);
                         flag1 = true;
                     }
                 } else {
                     this.cookTime = 0;
                 }
-            } else if (!this.isBurning() && this.cookTime > 0) {
+            } else if (!this.isRunning() && this.cookTime > 0) {
                 this.cookTime = MathHelper.clamp(this.cookTime - 2, 0, this.totalCookTime);
             }
             if (timer % 24 == 0) {
