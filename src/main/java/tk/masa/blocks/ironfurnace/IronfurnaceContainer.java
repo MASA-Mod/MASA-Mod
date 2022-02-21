@@ -1,4 +1,4 @@
-package tk.masa.blocks.powergen;
+package tk.masa.blocks.ironfurnace;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
@@ -20,14 +20,14 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 import tk.masa.setup.Registration;
 import tk.masa.varia.CustomEnergyStorage;
 
-public class PowergenContainer extends AbstractContainerMenu {
-
-    private BlockEntity blockEntity;
+public class IronfurnaceContainer extends AbstractContainerMenu{
+	
+	private BlockEntity blockEntity;
     private Player playerEntity;
     private IItemHandler playerInventory;
-
-    public PowergenContainer(int windowId, BlockPos pos, Inventory playerInventory, Player player) {
-        super(Registration.POWERGEN_CONTAINER.get(), windowId);
+	
+	public IronfurnaceContainer(int windowId, BlockPos pos, Inventory playerInventory, Player player) {
+        super(Registration.IRONFURNACE_CONTAINER.get(), windowId);
         blockEntity = player.getCommandSenderWorld().getBlockEntity(pos);
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
@@ -125,6 +125,7 @@ public class PowergenContainer extends AbstractContainerMenu {
 
         return itemstack;
     }
+
 
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {

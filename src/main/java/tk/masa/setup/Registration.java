@@ -24,6 +24,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import tk.masa.masa;
 import tk.masa.blocks.PortalBlock;
+import tk.masa.blocks.ironfurnace.IronfurnaceBE;
+import tk.masa.blocks.ironfurnace.IronfurnaceContainer;
 import tk.masa.blocks.powergen.PowergenBE;
 import tk.masa.blocks.powergen.PowergenBlock;
 import tk.masa.blocks.powergen.PowergenContainer;
@@ -104,12 +106,23 @@ public class Registration {
     public static final RegistryObject<Item> RAW_MYSTERIOUS_CHUNK = ITEMS.register("raw_mysterious_chunk", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> MYSTERIOUS_INGOT = ITEMS.register("mysterious_ingot", () -> new Item(ITEM_PROPERTIES));
     
+    //Powergen
     public static final RegistryObject<PowergenBlock> POWERGEN = BLOCKS.register("powergen", PowergenBlock::new);
     public static final RegistryObject<Item> POWERGEN_ITEM = fromBlock(POWERGEN);
     public static final RegistryObject<BlockEntityType<PowergenBE>> POWERGEN_BE = BLOCK_ENTITIES.register("powergen", () -> BlockEntityType.Builder.of(PowergenBE::new, POWERGEN.get()).build(null));
     public static final RegistryObject<MenuType<PowergenContainer>> POWERGEN_CONTAINER = CONTAINERS.register("powergen",
             () -> IForgeMenuType.create((windowId, inv, data) -> new PowergenContainer(windowId, data.readBlockPos(), inv, inv.player)));
+    
 
+    
+    //IF
+    public static final RegistryObject<PowergenBlock> IRONFURNACE = BLOCKS.register("ironfurnace", PowergenBlock::new);
+    public static final RegistryObject<Item> IRONFURNACE_ITEM = fromBlock(IRONFURNACE);
+    public static final RegistryObject<BlockEntityType<IronfurnaceBE>> IRONFURNACE_BE = BLOCK_ENTITIES.register("ironfurnace", () -> BlockEntityType.Builder.of(IronfurnaceBE::new, IRONFURNACE.get()).build(null));
+    public static final RegistryObject<MenuType<IronfurnaceContainer>> IRONFURNACE_CONTAINER = CONTAINERS.register("ironfurnace",
+            () -> IForgeMenuType.create((windowId, inv, data) -> new IronfurnaceContainer(windowId, data.readBlockPos(), inv, inv.player)));
+    
+    //-----------------------
 
     public static final Tags.IOptionalNamedTag<Block> MYSTERIOUS_ORE = BlockTags.createOptional(new ResourceLocation(masa.MODID, "mysterious_ore"));
     public static final Tags.IOptionalNamedTag<Item> MYSTERIOUS_ORE_ITEM = ItemTags.createOptional(new ResourceLocation(masa.MODID, "mysterious_ore"));

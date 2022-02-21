@@ -1,4 +1,4 @@
-package tk.masa.blocks.powergen.client;
+package tk.masa.blocks.base;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -22,11 +22,11 @@ import tk.masa.varia.CustomRenderType;
 
 import static java.lang.Boolean.TRUE;
 
-public class PowergenRenderer implements BlockEntityRenderer<PowergenBE> {
+public abstract class BaseRenderer implements BlockEntityRenderer<PowergenBE> {
 
     public static final ResourceLocation HALO = new ResourceLocation(masa.MODID, "effect/halo");
 
-    public PowergenRenderer(BlockEntityRendererProvider.Context context) {
+    public BaseRenderer(BlockEntityRendererProvider.Context context) {
     }
 
     @Override
@@ -69,8 +69,8 @@ public class PowergenRenderer implements BlockEntityRenderer<PowergenBE> {
         poseStack.popPose();
     }
 
-    public static void register() {
-        BlockEntityRenderers.register(Registration.POWERGEN_BE.get(), PowergenRenderer::new);
-    }
+    public abstract void register(); /*{
+        BlockEntityRenderers.register(Registration.POWERGEN_BE.get(), BaseRenderer::new);
+    }*/
 
 }

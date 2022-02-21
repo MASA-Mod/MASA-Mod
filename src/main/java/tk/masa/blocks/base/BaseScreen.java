@@ -1,4 +1,4 @@
-package tk.masa.blocks.powergen.client;
+package tk.masa.blocks.base;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -10,11 +10,11 @@ import net.minecraft.world.entity.player.Inventory;
 import tk.masa.masa;
 import tk.masa.blocks.powergen.PowergenContainer;
 
-public class PowergenScreen extends AbstractContainerScreen<PowergenContainer> {
+public abstract class BaseScreen extends AbstractContainerScreen<BaseContainer> {
+	
+	public ResourceLocation GUI;
 
-    private final ResourceLocation GUI = new ResourceLocation(masa.MODID, "textures/gui/powergen_gui.png");
-
-    public PowergenScreen(PowergenContainer container, Inventory inv, Component name) {
+    public BaseScreen(BaseContainer container, Inventory inv, Component name) {
         super(container, inv, name);
     }
 

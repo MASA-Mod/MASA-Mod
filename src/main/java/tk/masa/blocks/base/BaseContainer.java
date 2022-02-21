@@ -1,4 +1,4 @@
-package tk.masa.blocks.powergen;
+package tk.masa.blocks.base;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
@@ -6,10 +6,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -20,15 +22,15 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 import tk.masa.setup.Registration;
 import tk.masa.varia.CustomEnergyStorage;
 
-public class PowergenContainer extends AbstractContainerMenu {
+public abstract class BaseContainer extends AbstractContainerMenu {
 
-    private BlockEntity blockEntity;
-    private Player playerEntity;
-    private IItemHandler playerInventory;
+	protected BaseBE blockEntity;
+	protected Player playerEntity;
+	protected IItemHandler playerInventory;
 
-    public PowergenContainer(int windowId, BlockPos pos, Inventory playerInventory, Player player) {
-        super(Registration.POWERGEN_CONTAINER.get(), windowId);
-        blockEntity = player.getCommandSenderWorld().getBlockEntity(pos);
+    public BaseContainer(MenuType<?> containerType, int windowId, BlockPos pos, Inventory playerInventory, Player player) {
+        super(containerType, windowId);
+        blockEntity = (BaseBE) player.getCommandSenderWorld().getBlockEntity(pos);
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
 
@@ -40,7 +42,36 @@ public class PowergenContainer extends AbstractContainerMenu {
         layoutPlayerInventorySlots(10, 70);
         trackPower();
     }
+    
+    /*
+    @OnlyIn(Dist.CLIENT)
+    public boolean isRunning() {
+        return this.blockEntity.isRunning();
+    }
 
+    @OnlyIn(Dist.CLIENT)
+    public int getProgressScaled(int pixels) {
+        int lvt_1_1_ = this.fields.get(2);
+        int lvt_2_1_ = this.fields.get(3);
+        return lvt_2_1_ != 0 && lvt_1_1_ != 0 ? lvt_1_1_ * pixels / lvt_2_1_ : 0;
+    }
+    
+    @OnlyIn(Dist.CLIENT)
+    public int getEnergyScaled(int pixels) {
+        int energy = te.energyStorage.getEnergyStored();
+        int maxEnergy = te.energyStorage.getMaxEnergyStored();
+        return maxEnergy != 0 && energy != 0 ? energy * pixels / maxEnergy : 0;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void updateProgressBar(int id, int data) {
+        super.updateProgressBar(id, data);
+        this..fields.set(id, data);
+    }
+	*/
+    
+    
     // Setup syncing of power from server to client so that the GUI can show the amount of power in the block
     private void trackPower() {
         // Unfortunatelly on a dedicated server ints are actually truncated to short so we need
@@ -125,6 +156,58 @@ public class PowergenContainer extends AbstractContainerMenu {
 
         return itemstack;
     }
+    /*
+    @Override
+    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.inventorySlots.get(index);
+        if (slot != null && slot.getHasStack()) {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+            if (index == 2) {
+                if (!this.mergeItemStack(itemstack1, 3, this.inventorySlots.size(), true)) {
+                    return ItemStack.EMPTY;
+                }
+
+                slot.onSlotChange(itemstack1, itemstack);
+            } else if (index != 1 && index != 0 && index != 3) {
+                if (this.func_217057_a(itemstack1)) {
+                    if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (index >= 4 && index < 30) {
+                    if (!this.mergeItemStack(itemstack1, 30, this.inventorySlots.size(), false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (index >= 30 && index < 39 && !this.mergeItemStack(itemstack1, 4, 30, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.mergeItemStack(itemstack1, 4, this.inventorySlots.size(), false)) {
+                return ItemStack.EMPTY;
+            }
+
+            if (itemstack1.isEmpty()) {
+                slot.putStack(ItemStack.EMPTY);
+            } else {
+                slot.onSlotChanged();
+            }
+
+            if (itemstack1.getCount() == itemstack.getCount()) {
+                return ItemStack.EMPTY;
+            }
+
+            slot.onTake(playerIn, itemstack1);
+        }
+
+        return itemstack;
+    }
+    */
+    
+    /*
+    protected boolean func_217057_a(ItemStack p_217057_1_) {
+        return this.world.getRecipeManager().getRecipe(IRecipeType.SMELTING, new Inventory(new ItemStack[]{p_217057_1_}), this.world).isPresent();
+    }
+     */
 
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
@@ -144,7 +227,7 @@ public class PowergenContainer extends AbstractContainerMenu {
         return index;
     }
 
-    private void layoutPlayerInventorySlots(int leftCol, int topRow) {
+    protected void layoutPlayerInventorySlots(int leftCol, int topRow) {
         // Player inventory
         addSlotBox(playerInventory, 9, leftCol, topRow, 9, 18, 3, 18);
 
