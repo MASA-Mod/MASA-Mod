@@ -27,6 +27,7 @@ import tk.masa.blocks.PortalBlock;
 import tk.masa.blocks.powergen.PowergenBE;
 import tk.masa.blocks.powergen.PowergenBlock;
 import tk.masa.blocks.powergen.PowergenContainer;
+import tk.masa.items.ProbeItem;
 
 public class Registration {
 	
@@ -116,6 +117,8 @@ public class Registration {
     
     public static final RegistryObject<Block> PORTAL_BLOCK = BLOCKS.register("portal", PortalBlock::new);
     public static final RegistryObject<Item> PORTAL_ITEM = fromBlock(PORTAL_BLOCK);
+    
+    public static final RegistryObject<Item> PROBE_ITEM = ITEMS.register("probe", ProbeItem::new);
     
     //Moonitems
     public static final RegistryObject<Block> MOON_ROCK = BLOCKS.register("moon_rock", () -> new Block(STONE_BLOCK_PROPERTIES));
