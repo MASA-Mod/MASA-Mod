@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.storage.DimensionDataStorage;
@@ -24,18 +25,19 @@ public class TeamManager extends SavedData{
 	
 	//public ArrayList<HashSet> oneTeam = new ArrayList<>();
 	//public ArrayList<HashSet> twoTeam = new ArrayList<>();
+	public static TeamManager twsd;
 	public HashMap<String, HashMap> allTeamsMap = new HashMap<String, HashMap>();
 	public static String dataName = masa.MODID + "_DATA";
 	
-	public static void init(World world){
+	public static void init(Level world){
 		System.out.println("INITDATA");
-		ServerWorld s = (ServerWorld) world;
-        ServerWorld overworld = s.getServer().getWorld(DimensionType.OVERWORLD);
-        twsd = TeamWorldSavedData.get(overworld);
+		ServerLevel s = (ServerLevel) world;
+        ServerLevel overworld = s.getServer().getLevel(Level.OVERWORLD);
+        twsd = TeamManager.get(overworld);
 	}
 
 	
-	public static void test(PlayerEntity player) {
+	public static void test() {
 		addTeam("TestTeam");
 		
         addPlayer("TestTeam", "TEST");
@@ -53,8 +55,7 @@ public class TeamManager extends SavedData{
         System.out.println("TEAMADD");
         System.out.println(hasPlayerAspect("TEST", ReaseachEnum.PROBE_KOMET));
         System.out.println(hasPlayerAspect("TEST", ReaseachEnum.PROBE_MOON));
-        
-        twsd.markDirty();
+        twsd.setDirty();
 	}
 	
 
@@ -69,19 +70,19 @@ public class TeamManager extends SavedData{
 		HashMap<String, HashSet> oneTeam = twsd.allTeamsMap.get(team);
 		oneTeam.get("players").add(name);
 		System.out.println(name + " joined team " + team);
-		twsd.markDirty();
+		twsd.setDirty();
 	}
 	public static void removePlayer(String team, String name) {
 		HashMap<String, HashSet> oneTeam = twsd.allTeamsMap.get(team);
 		oneTeam.get("players").remove(name);
 		System.out.println(name + " left team " + team);
-		twsd.markDirty();
+		twsd.setDirty();
 	}
 	public static void addAspectToTeam(String team, ReaseachEnum re) {
 		HashMap<String, HashSet> oneTeam = twsd.allTeamsMap.get(team);
 		oneTeam.get("aspects").add(re);
 		System.out.println(team + " learned " + re.name());
-		twsd.markDirty();
+		twsd.setDirty();
 	}
 	public static void addAspectToPlayer(String playerName, ReaseachEnum re) {
 		for (Entry<String, HashMap> entry : twsd.allTeamsMap.entrySet()) {
@@ -93,7 +94,7 @@ public class TeamManager extends SavedData{
 				res.add(re);
 			}
 		}
-		twsd.markDirty();
+		twsd.setDirty();
 	}
 	public static void addTeam(String name) {
 		HashSet<String> playerNames = new HashSet<String>();
@@ -103,11 +104,11 @@ public class TeamManager extends SavedData{
 		oneTeamMap.put("players", playerNames);
 		twsd.allTeamsMap.put(name, oneTeamMap);
 		System.out.println("Added team " + name);
-		twsd.markDirty();
+		twsd.setDirty();
 	}
 	public static void deleteTeam(String name) {
 		twsd.allTeamsMap.remove(name);
-		twsd.markDirty();
+		twsd.setDirty();
 	}
 	public static boolean hasPlayerAspect(String playerName, ReaseachEnum re) {
 		for (Entry<String, HashMap> entry : twsd.allTeamsMap.entrySet()) {
@@ -131,6 +132,9 @@ public class TeamManager extends SavedData{
 		DimensionDataStorage storage = sworld.getDataStorage();
 		return storage.computeIfAbsent(TeamManager::new, TeamManager::new, dataName);
 	}
+	
+    public TeamManager() {
+    }
 	
 	public TeamManager(CompoundTag nbt) {
 		String name = "";

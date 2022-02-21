@@ -7,7 +7,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import tk.masa.data.DataHandler;
+import tk.masa.data.TeamManager;
 
 public class CommandTeam implements Command<CommandSourceStack> {
 	
@@ -22,7 +22,7 @@ public class CommandTeam implements Command<CommandSourceStack> {
         						Commands.argument("teamName", StringArgumentType.word())
         							.executes(
 	        									c -> {
-	        					                    DataHandler.addPlayer(StringArgumentType.getString(c, "teamName"), c.getSource().getPlayerOrException().getName().getString());
+	        					                    TeamManager.addPlayer(StringArgumentType.getString(c, "teamName"), c.getSource().getPlayerOrException().getName().getString());
 	        					                    return 1;
 	        					                })
         									)
@@ -33,7 +33,7 @@ public class CommandTeam implements Command<CommandSourceStack> {
         						Commands.argument("teamName", StringArgumentType.word())
         							.executes(
 	        									c -> {
-	        					                    DataHandler.removePlayer(StringArgumentType.getString(c, "teamName"), c.getSource().getPlayerOrException().getName().getString());
+	        					                    TeamManager.removePlayer(StringArgumentType.getString(c, "teamName"), c.getSource().getPlayerOrException().getName().getString());
 	        					                    return 1;
 	        					                })
         									)
@@ -44,7 +44,7 @@ public class CommandTeam implements Command<CommandSourceStack> {
         						Commands.argument("teamName", StringArgumentType.word())
         							.executes(
 	        									c -> {
-	        					                    DataHandler.addTeam(StringArgumentType.getString(c, "teamName"));
+	        					                    TeamManager.addTeam(StringArgumentType.getString(c, "teamName"));
 	        					                    return 1;
 	        					                })
         									)
@@ -55,7 +55,7 @@ public class CommandTeam implements Command<CommandSourceStack> {
         						Commands.argument("teamName", StringArgumentType.word())
         							.executes(
 	        									c -> {
-	        										DataHandler.deleteTeam(StringArgumentType.getString(c, "teamName"));
+	        										TeamManager.deleteTeam(StringArgumentType.getString(c, "teamName"));
 	        					                    return 1;
 	        					                })
         									)
@@ -64,7 +64,7 @@ public class CommandTeam implements Command<CommandSourceStack> {
         				Commands.literal("debug")
         				.executes(
 								c -> {
-				                    DataHandler.debug();
+				                    TeamManager.debug();
 				                    return 1;
 				                })						
         		)
@@ -72,7 +72,7 @@ public class CommandTeam implements Command<CommandSourceStack> {
         				Commands.literal("list")
         				.executes(
 								c -> {
-				                    Object[] temp = DataHandler.listTeams();
+				                    Object[] temp = TeamManager.listTeams();
 				                    System.out.println(temp.toString());
 				                    return 1;
 				                })					
