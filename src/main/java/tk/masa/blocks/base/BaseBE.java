@@ -27,10 +27,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class BaseBE extends BlockEntity {
 
     // Never create lazy optionals in getCapability. Always place them as fields in the tile entity:
-    private final ItemStackHandler itemHandler = createHandler();
+    final ItemStackHandler itemHandler = createHandler();
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
 
-    private final CustomEnergyStorage energyStorage = createEnergy();
+    final CustomEnergyStorage energyStorage = createEnergy();
     private final LazyOptional<IEnergyStorage> energy = LazyOptional.of(() -> energyStorage);
 
     private int counter;
@@ -38,7 +38,10 @@ public abstract class BaseBE extends BlockEntity {
     public BaseBE(BlockEntityType<?> tileentitytypeIn, BlockPos pos, BlockState state) {
         super(tileentitytypeIn, pos, state);
     }
-
+    
+    public boolean isRunning() {
+        return this.counter > 0;
+    }
 
     @Override
     public void setRemoved() {
@@ -70,33 +73,6 @@ public abstract class BaseBE extends BlockEntity {
                     Block.UPDATE_ALL);
         }
 
-        sendOutPower();
-    }
-
-    private void sendOutPower() {
-        AtomicInteger capacity = new AtomicInteger(energyStorage.getEnergyStored());
-        if (capacity.get() > 0) {
-            for (Direction direction : Direction.values()) {
-                BlockEntity be = level.getBlockEntity(worldPosition.relative(direction));
-                if (be != null) {
-                    boolean doContinue = be.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).map(handler -> {
-                                if (handler.canReceive()) {
-                                    int received = handler.receiveEnergy(Math.min(capacity.get(), BaseConfig.POWERGEN_SEND.get()), false);
-                                    capacity.addAndGet(-received);
-                                    energyStorage.consumeEnergy(received);
-                                    setChanged();
-                                    return capacity.get() > 0;
-                                } else {
-                                    return true;
-                                }
-                            }
-                    ).orElse(true);
-                    if (!doContinue) {
-                        return;
-                    }
-                }
-            }
-        }
     }
 
     @Override

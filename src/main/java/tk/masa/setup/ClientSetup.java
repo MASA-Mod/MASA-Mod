@@ -18,13 +18,14 @@ public class ClientSetup {
     public static void init(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             MenuScreens.register(Registration.POWERGEN_CONTAINER.get(), PowergenScreen::new);
-            //MenuScreens.register(Registration.IRONFURNACE_CONTAINER.get(), IronfurnaceScreen::new);
+            MenuScreens.register(Registration.IRONFURNACE_CONTAINER.get(), IronfurnaceScreen::new);
         	
         	//MenuScreens.register(Registration.POWERGEN_CONTAINER, null)
         	
             ItemBlockRenderTypes.setRenderLayer(Registration.POWERGEN.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(Registration.IRONFURNACE.get(), RenderType.translucent());
             PowergenRenderer.register();
+            
         });
         
         //MinecraftForge.EVENT_BUS.addListener(KeyInputHandler::onKeyInput);

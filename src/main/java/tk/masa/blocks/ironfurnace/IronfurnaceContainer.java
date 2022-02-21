@@ -17,30 +17,32 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import tk.masa.blocks.base.BaseContainer;
 import tk.masa.setup.Registration;
 import tk.masa.varia.CustomEnergyStorage;
 
-public class IronfurnaceContainer extends AbstractContainerMenu{
+public class IronfurnaceContainer extends BaseContainer{
 	
 	private BlockEntity blockEntity;
     private Player playerEntity;
     private IItemHandler playerInventory;
 	
 	public IronfurnaceContainer(int windowId, BlockPos pos, Inventory playerInventory, Player player) {
-        super(Registration.IRONFURNACE_CONTAINER.get(), windowId);
+        super(Registration.IRONFURNACE_CONTAINER.get(), windowId, pos, playerInventory, player);
         blockEntity = player.getCommandSenderWorld().getBlockEntity(pos);
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
 
         if (blockEntity != null) {
             blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-                addSlot(new SlotItemHandler(h, 0, 64, 24));
+            	 addSlot(new SlotItemHandler(h, 0, 64, 24));
+                 addSlot(new SlotItemHandler(h, 1, 64, 54));
             });
         }
-        layoutPlayerInventorySlots(10, 70);
-        trackPower();
+        layoutPlayerInventorySlots(8, 84);
+        //trackPower();
     }
-
+	/*
     // Setup syncing of power from server to client so that the GUI can show the amount of power in the block
     private void trackPower() {
         // Unfortunatelly on a dedicated server ints are actually truncated to short so we need
@@ -81,7 +83,7 @@ public class IronfurnaceContainer extends AbstractContainerMenu{
 
     @Override
     public boolean stillValid(Player playerIn) {
-        return stillValid(ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos()), playerEntity, Registration.POWERGEN.get());
+        return stillValid(ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos()), playerEntity, Registration.IRONFURNACE.get());
     }
 
     @Override
@@ -152,5 +154,5 @@ public class IronfurnaceContainer extends AbstractContainerMenu{
         // Hotbar
         topRow += 58;
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
-    }
+    }*/
 }

@@ -1,26 +1,19 @@
 package tk.masa.blocks.ironfurnace;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import tk.masa.masa;
 import tk.masa.blocks.base.BaseScreen;
-import tk.masa.blocks.powergen.PowergenContainer;
-import net.minecraftforge.api.distmarker.Dist;
 
-public class IronfurnaceScreen extends AbstractContainerScreen<PowergenContainer> {
-
-	private final ResourceLocation GUI = new ResourceLocation(masa.MODID, "textures/gui/powergen_gui.png");
-
-    public IronfurnaceScreen(PowergenContainer container, Inventory inv, Component name) {
+public class IronfurnaceScreen extends BaseScreen<IronfurnaceContainer> {
+	
+    public IronfurnaceScreen(IronfurnaceContainer container, Inventory inv, Component name) {
         super(container, inv, name);
+        GUI = new ResourceLocation(masa.MODID + ":" +"textures/gui/powered_three_in_one_out_gui.png");
     }
+    
+    /*
 
     @Override
     public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
@@ -41,5 +34,7 @@ public class IronfurnaceScreen extends AbstractContainerScreen<PowergenContainer
         int relY = (this.height - this.imageHeight) / 2;
         this.blit(matrixStack, relX, relY, 0, 0, this.imageWidth, this.imageHeight);
     }
+    
+    */
 
 }

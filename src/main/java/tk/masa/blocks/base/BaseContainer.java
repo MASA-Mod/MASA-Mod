@@ -10,7 +10,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -19,7 +19,6 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import tk.masa.setup.Registration;
 import tk.masa.varia.CustomEnergyStorage;
 
 public abstract class BaseContainer extends AbstractContainerMenu {
@@ -40,15 +39,14 @@ public abstract class BaseContainer extends AbstractContainerMenu {
             });
         }
         layoutPlayerInventorySlots(10, 70);
-        trackPower();
+        //trackPower();
     }
     
-    /*
-    @OnlyIn(Dist.CLIENT)
     public boolean isRunning() {
         return this.blockEntity.isRunning();
     }
-
+    
+    /*
     @OnlyIn(Dist.CLIENT)
     public int getProgressScaled(int pixels) {
         int lvt_1_1_ = this.fields.get(2);
@@ -58,8 +56,8 @@ public abstract class BaseContainer extends AbstractContainerMenu {
     
     @OnlyIn(Dist.CLIENT)
     public int getEnergyScaled(int pixels) {
-        int energy = te.energyStorage.getEnergyStored();
-        int maxEnergy = te.energyStorage.getMaxEnergyStored();
+        int energy = blockEntity.energyStorage.getEnergyStored();
+        int maxEnergy = blockEntity.energyStorage.getMaxEnergyStored();
         return maxEnergy != 0 && energy != 0 ? energy * pixels / maxEnergy : 0;
     }
 
@@ -67,13 +65,11 @@ public abstract class BaseContainer extends AbstractContainerMenu {
     @Override
     public void updateProgressBar(int id, int data) {
         super.updateProgressBar(id, data);
-        this..fields.set(id, data);
+        this.blockEntity.fields.set(id, data);
     }
-	*/
-    
     
     // Setup syncing of power from server to client so that the GUI can show the amount of power in the block
-    private void trackPower() {
+    protected void trackPower() {
         // Unfortunatelly on a dedicated server ints are actually truncated to short so we need
         // to split our integer here (split our 32 bit integer into two 16 bit integers)
         addDataSlot(new DataSlot() {
@@ -105,14 +101,16 @@ public abstract class BaseContainer extends AbstractContainerMenu {
             }
         });
     }
+    */
 
     public int getEnergy() {
         return blockEntity.getCapability(CapabilityEnergy.ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
     }
-
+	
     @Override
     public boolean stillValid(Player playerIn) {
-        return stillValid(ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos()), playerEntity, Registration.POWERGEN.get());
+        return stillValid(ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos()), playerEntity, blockEntity.getBlockState().getBlock());
+        //return true;
     }
 
     @Override
@@ -156,59 +154,6 @@ public abstract class BaseContainer extends AbstractContainerMenu {
 
         return itemstack;
     }
-    /*
-    @Override
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
-        ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
-            if (index == 2) {
-                if (!this.mergeItemStack(itemstack1, 3, this.inventorySlots.size(), true)) {
-                    return ItemStack.EMPTY;
-                }
-
-                slot.onSlotChange(itemstack1, itemstack);
-            } else if (index != 1 && index != 0 && index != 3) {
-                if (this.func_217057_a(itemstack1)) {
-                    if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
-                        return ItemStack.EMPTY;
-                    }
-                } else if (index >= 4 && index < 30) {
-                    if (!this.mergeItemStack(itemstack1, 30, this.inventorySlots.size(), false)) {
-                        return ItemStack.EMPTY;
-                    }
-                } else if (index >= 30 && index < 39 && !this.mergeItemStack(itemstack1, 4, 30, false)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (!this.mergeItemStack(itemstack1, 4, this.inventorySlots.size(), false)) {
-                return ItemStack.EMPTY;
-            }
-
-            if (itemstack1.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
-            } else {
-                slot.onSlotChanged();
-            }
-
-            if (itemstack1.getCount() == itemstack.getCount()) {
-                return ItemStack.EMPTY;
-            }
-
-            slot.onTake(playerIn, itemstack1);
-        }
-
-        return itemstack;
-    }
-    */
-    
-    /*
-    protected boolean func_217057_a(ItemStack p_217057_1_) {
-        return this.world.getRecipeManager().getRecipe(IRecipeType.SMELTING, new Inventory(new ItemStack[]{p_217057_1_}), this.world).isPresent();
-    }
-     */
-
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
         for (int i = 0 ; i < amount ; i++) {

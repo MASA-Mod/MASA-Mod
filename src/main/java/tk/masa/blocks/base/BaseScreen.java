@@ -7,18 +7,17 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import tk.masa.masa;
-import tk.masa.blocks.powergen.PowergenContainer;
+import tk.masa.blocks.ironfurnace.IronfurnaceContainer;
 
-public abstract class BaseScreen extends AbstractContainerScreen<BaseContainer> {
+public abstract class BaseScreen<T extends BaseContainer> extends AbstractContainerScreen<T> {
 	
 	public ResourceLocation GUI;
 
-    public BaseScreen(BaseContainer container, Inventory inv, Component name) {
-        super(container, inv, name);
+    public BaseScreen(T t, Inventory inv, Component name) {
+        super(t, inv, name);
     }
 
-    @Override
+	@Override
     public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);

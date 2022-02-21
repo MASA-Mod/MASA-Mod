@@ -25,10 +25,11 @@ import net.minecraftforge.registries.RegistryObject;
 import tk.masa.masa;
 import tk.masa.blocks.PortalBlock;
 import tk.masa.blocks.ironfurnace.IronfurnaceBE;
-import tk.masa.blocks.ironfurnace.IronfurnaceContainer;
+import tk.masa.blocks.ironfurnace.IronfurnaceBlock;
 import tk.masa.blocks.powergen.PowergenBE;
 import tk.masa.blocks.powergen.PowergenBlock;
 import tk.masa.blocks.powergen.PowergenContainer;
+import tk.masa.blocks.ironfurnace.IronfurnaceContainer;
 import tk.masa.items.ProbeItem;
 
 public class Registration {
@@ -116,7 +117,7 @@ public class Registration {
 
     
     //IF
-    public static final RegistryObject<PowergenBlock> IRONFURNACE = BLOCKS.register("ironfurnace", PowergenBlock::new);
+    public static final RegistryObject<IronfurnaceBlock> IRONFURNACE = BLOCKS.register("ironfurnace", IronfurnaceBlock::new);
     public static final RegistryObject<Item> IRONFURNACE_ITEM = fromBlock(IRONFURNACE);
     public static final RegistryObject<BlockEntityType<IronfurnaceBE>> IRONFURNACE_BE = BLOCK_ENTITIES.register("ironfurnace", () -> BlockEntityType.Builder.of(IronfurnaceBE::new, IRONFURNACE.get()).build(null));
     public static final RegistryObject<MenuType<IronfurnaceContainer>> IRONFURNACE_CONTAINER = CONTAINERS.register("ironfurnace",
