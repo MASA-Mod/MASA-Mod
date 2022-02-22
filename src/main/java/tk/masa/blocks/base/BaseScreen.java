@@ -4,7 +4,10 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Component.Serializer;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import tk.masa.blocks.ironfurnace.IronfurnaceContainer;
@@ -39,32 +42,19 @@ public abstract class BaseScreen<T extends BaseContainer> extends AbstractContai
         if(162 <= (mouseX - getGuiLeft()) && 169 >= (mouseX - getGuiLeft())) {
         	if(12 <= (mouseY - getGuiTop()) && 73 >= (mouseY - getGuiTop())) {
 	            String s = String.valueOf(menu.getEnergy()) + "/" + String.valueOf(menu.getEnergy());
-	            renderTooltip(matrixStack, mouseX - getGuiLeft(), mouseY - getGuiTop());
+	            System.out.println(s);
+	            
+	            
+	            renderTooltip(matrixStack, new TextComponent(s), mouseX - getGuiLeft(), mouseY - getGuiTop());
         	}
         }
     }
     
     
-    
-    /*
-    @Override
-    protected void renderFg(int mouseX, int mouseY) {
-  
-        this.minecraft.fontRenderer.drawString(this.playerInv.getDisplayName().getUnformattedComponentText(), 7, this.ySize - 93, 4210752);
-        
-        this.minecraft.fontRenderer.drawString(name.getUnformattedComponentText(), 7 + this.xSize / 2 - this.minecraft.fontRenderer.getStringWidth(name.getUnformattedComponentText()) / 2, 6, 4210752);
-        
-        if(162 <= (mouseX - guiLeft) && 169 >= (mouseX - guiLeft)) {
-        	if(12 <= (mouseY - guiTop) && 73 >= (mouseY - guiTop)) {
-	            String s = String.valueOf(container.te.energyStorage.getEnergyStored()) + "/" + String.valueOf(container.te.energyStorage.getMaxEnergyStored());
-	            renderTooltip(s, mouseX - guiLeft, mouseY - guiTop);
-        	}
-        }
-        	
-    }
-	*/
     @Override
     protected void renderBg(PoseStack matrixStack, float partialTicks, int mouseX, int mouseY) {
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, GUI);
         int relX = (this.width - this.imageWidth) / 2;
         int relY = (this.height - this.imageHeight) / 2;
@@ -72,6 +62,8 @@ public abstract class BaseScreen<T extends BaseContainer> extends AbstractContai
         int i;
         
         i = ((BaseContainer)this.menu).getEnergyScaled(60);
+        i = 30;
         this.blit(matrixStack, getGuiLeft() + 162, getGuiTop() + 73, 248, 61, 8, -i);
     }
+
 }

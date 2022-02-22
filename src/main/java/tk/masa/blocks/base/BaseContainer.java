@@ -109,6 +109,10 @@ public abstract class BaseContainer extends AbstractContainerMenu {
     public int getEnergy() {
         return blockEntity.getCapability(CapabilityEnergy.ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
     }
+    
+    public int getMaxEnergy() {
+        return blockEntity.getCapability(CapabilityEnergy.ENERGY).map(IEnergyStorage::getMaxEnergyStored).orElse(0);
+    }
 	
     @Override
     public boolean stillValid(Player playerIn) {
