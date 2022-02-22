@@ -37,6 +37,7 @@ public abstract class BaseBE extends BlockEntity {
 
     public BaseBE(BlockEntityType<?> tileentitytypeIn, BlockPos pos, BlockState state) {
         super(tileentitytypeIn, pos, state);
+        energyStorage.addEnergy(BaseConfig.POWERGEN_CAPACITY.get() / 2);
     }
     
     public boolean isRunning() {

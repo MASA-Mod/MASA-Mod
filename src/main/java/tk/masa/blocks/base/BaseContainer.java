@@ -33,17 +33,24 @@ public abstract class BaseContainer extends AbstractContainerMenu {
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
 
-        if (blockEntity != null) {
+        /*if (blockEntity != null) {
             blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
                 addSlot(new SlotItemHandler(h, 0, 64, 24));
             });
         }
         layoutPlayerInventorySlots(10, 70);
+        */
         //trackPower();
     }
     
     public boolean isRunning() {
         return this.blockEntity.isRunning();
+    }
+    
+    public int getEnergyScaled(int pixels) {
+        int energy = blockEntity.energyStorage.getEnergyStored();
+        int maxEnergy = blockEntity.energyStorage.getMaxEnergyStored();
+        return maxEnergy != 0 && energy != 0 ? energy * pixels / maxEnergy : 0;
     }
     
     /*
@@ -180,4 +187,5 @@ public abstract class BaseContainer extends AbstractContainerMenu {
         topRow += 58;
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
     }
+
 }
