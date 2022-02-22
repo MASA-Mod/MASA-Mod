@@ -9,14 +9,17 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.extensions.IForgeMenuType;
+import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -40,6 +43,8 @@ public class Registration {
     private static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, MODID);
     private static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, MODID);
     private static final DeferredRegister<StructureFeature<?>> STRUCTURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, MODID);
+    private static final DeferredRegister<GlobalLootModifierSerializer<?>> LOOT_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, MODID);
+    private static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MODID);
     
     public static void init() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -58,36 +63,10 @@ public class Registration {
     /*
     public static final RegistryObject<Biome> TESTBIOME = BIOMES.register("testbiome", TestBiome::new);
     public static final RegistryObject<VoidModDimension> DIMENSION = DIMENSIONS.register("dimension", VoidModDimension::new);
-    
-    
-    public static final RegistryObject<BlastFurnaceRecipeSerializer> OBSIDIAN_FORGE_RECIPES = RECIPE_SERIALIZERS.register("blast_recipe", BlastFurnaceRecipeSerializer::new);
-    public static final RegistryObject<BlockIronFurnace> IRON_FURNACE = BLOCKS.register(BlockIronFurnace.IRON_FURNACE, BlockIronFurnace::new);
-    public static final RegistryObject<Item> IRON_FURNACE_ITEM = fromBlock(IRON_FURNACE)
-    public static final RegistryObject<TileEntityType<BlockIronFurnaceTile>> IRON_FURNACE_TILE = TILES.register(BlockIronFurnace.IRON_FURNACE, () -> TileEntityType.Builder.create(BlockIronFurnaceTile::new, IRON_FURNACE.get()).build(null));
-    public static final RegistryObject<ContainerType<BlockIronFurnaceContainer>> IRON_FURNACE_CONTAINER = CONTAINERS.register(BlockIronFurnace.IRON_FURNACE, () -> IForgeContainerType.create((windowId, inv, data) -> {
-        BlockPos pos = data.readBlockPos();
-        return new BlockIronFurnaceContainer(windowId, Minecraft.getInstance().world, pos, inv, Minecraft.getInstance().player);
-    }));
-    
-    
-    //public static final RegistryObject<BlastFurnaceRecipeSerializer> COMPRESSOR_RECIPES = RECIPE_SERIALIZERS.register("compressor_recipe", BlastFurnaceRecipeSerializer::new);
-    public static final RegistryObject<BlockCompressor> COMPRESSOR = BLOCKS.register(BlockCompressor.COMPRESSOR, BlockCompressor::new);
-    public static final RegistryObject<Item> COMPRESSOR_ITEM = fromBlock(COMPRESSOR)
-    public static final RegistryObject<TileEntityType<BlockCompressorTile>> COMPRESSOR_TILE = TILES.register(BlockCompressor.COMPRESSOR, () -> TileEntityType.Builder.create(BlockCompressorTile::new, COMPRESSOR.get()).build(null));
-    public static final RegistryObject<ContainerType<BlockCompressorContainer>> COMPRESSOR_CONTAINER = CONTAINERS.register(BlockCompressor.COMPRESSOR, () -> IForgeContainerType.create((windowId, inv, data) -> {
-        BlockPos pos = data.readBlockPos();
-        return new BlockCompressorContainer(windowId, Minecraft.getInstance().world, pos, inv, Minecraft.getInstance().player);
-    }));
-    
+ 
 
     public static final RegistryObject<Item> OIL_BUCKET = ITEMS.register("oil_bucket", () -> new BucketItem(() -> ModFluids.oil, new Item.Properties().group(ItemGroup.MISC).maxStackSize(1)));
     public static final RegistryObject<Block> OIL = BLOCKS.register("flowing_oil", ()-> new FlowingFluidBlock(() -> ModFluids.oil, Block.Properties.create(Material.WATER).doesNotBlockMovement().noDrops()));
-    
-    
-    //test
-    public static final RegistryObject<Item> TESTITEM = ITEMS.register("testitem", TestItem::new);
-    public static final RegistryObject<Item> FIRSTITEM = ITEMS.register("firstitem", () -> new Item(new Item.Properties().group(ItemGroup.MISC).maxStackSize(4)));
-    public static final RegistryObject<Item> SECONDITEM = ITEMS.register("seconditem", () -> new Item(ITEM_PROPERTIES));
     
     */
     //---------------------------------------------------------------------------------
